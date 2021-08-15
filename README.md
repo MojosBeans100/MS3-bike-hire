@@ -66,9 +66,21 @@ See the process flow below:
 [Back to Table of contents](#table-of-contents)
 
 ## Confirmation emails (for both user and owner)
+### Booked Bikes
+A confirmation email is sent to both the user and owner when bikes have been booked.
+
+The email to the user provides all details of the booking, and some additional 'useful to know' information.  
+However, it is kept basic as it is assumed that the hypothetical website would host most information required for hiring (eg what to bring, cancellation terms etc).
+
+The email sent to the owner is simply to notify that a booking has been made, and to urge them to check the details.
+
+[Mailtrap](https://mailtrap.io/) was used as the Email Sandbox Service system, and the following blog post was used to link it to the Python script: [Link](https://mailtrap.io/blog/sending-emails-in-python-tutorial-with-code-examples/).
+
+CONFIRMATION EMAIL PICS
 
 
-
+### Problem
+An email is also sent to both user and owner if there has been an issue with the booking. 
 
 
 ## Future possible features
@@ -77,10 +89,6 @@ See the process flow below:
 For example, see similar booking system idea here for a campervan rental site:
 
 <img src = "assets/images/availability_calendar_idea.JPG">
-
-
-
-
 
 
 # Technologies Used:
@@ -100,7 +108,8 @@ For example, see similar booking system idea here for a campervan rental site:
 * Code Institute provided a mock terminal for use for the project.
 
 ### Google Sheets
-* Google Sheets was used to store the bikes information. The link to the sheet can be found <a href=# target="_blank" rel="noopener">here</a>. (Note: Right click on link to open a new tab).
+* Google Sheets was used to store the bikes information. The link to the sheet can be found <a href=# target="_blank" rel="noopener">here</a>. 
+(Note: Right click on link to open a new tab).
 
 [Back to Table of Contents](https://github.com/Michelle3334/battleships#table-of-contents)
 
@@ -124,13 +133,20 @@ There had to be a limit to how many bikes which could be hired, therefore this w
 
 
 ### Error checking
-One of the most important aspects of a booking system is to ensure no double bookings occur.  For this reason, a number of error-checking measures are provided in the code. 
-* The shop owner has the ability to choose a blanket availability to each bike index.  This allows for, for example,  mechanical problems with bikes thus rendering them unbookable for a few days, or the bike is sold and no longer present in the hire fleet.  
+One of the most important aspects of a booking system is to ensure no double bookings occur.  For this reason, a number of error-checking measures are provided in the code.
+
+* The shop owner has the ability to choose a blanket availability to each bike index.  This allows for, for example,  mechanical problems with bikes thus rendering them unbookable for a few days, or the bike is sold and no longer present in the hire fleet.
+
 * The code checks the dates in the calendar and returns unavailable bikes for those dates.
-* If a bike is booked, the code removes that bike index from all other bike dictionaries, and appends it to the unavailble bikes list. 
+
+* If a bike is booked, the code removes that bike index from all other bike dictionaries, and appends it to the unavailble bikes list.
+
 * The code checks and re-checks bikes availability each time the code is run. 
 
 With all these measures, it should not be possible to double book a bike. 
+
+### Other General Spreadsheet Maintenance
+The bike shop owner will have access to the spreadsheet, to review the calendar.  It is likely there will be times 
 
 * To add new bikes bought into the shop, the owner can simply add the bike to the bottom of the bikes list, with a new bike index.  This again ensures no confusion with double booking other bikes. 
 
@@ -139,23 +155,38 @@ Calendar updates
 
 * Manual booking
 
+# Issues
+The author's Gitpod workspace was stuck in the 'Stopping' loading screen for a while on Sunday 15th August.  On research into similar issues many other students have had, the decision was made swiftly to create an entirely new workspace (since all changes had been recently pushed to Github and therefore backed up), as opposed to raising a ticket with Gitpod and potentially losing hours or days of work time in the run up to the project submission date. 
+
+With this in mind, the author has provided links to two Github repositories - one being the initial version with ~ 90% of commits (named 'bike-hire), and the second workspace ('MS3-bike-hire') into which text from run.py in 'bike-hire' was copied and pasted, resulting in a large commit of ~ 800 changes in one go. 
+
+* [bike-hire Github](https://github.com/MojosBeans100/bike-hire)
+* [MS3-bike-hire Github](https://github.com/MojosBeans100/MS3-bike-hire)
+
+The author requests that the project grader reviews the commits from 'bike-hire' to ensure no assumptions are made on plagiarism when noticing the unusual nature of commits on 'MS3-bike-hire'. 
+
+![Gitpod Issue](assets/images/gitpod_stopping_error.JPG) 
+
 # Deployment
 The project was deployed to GitHub Pages using the following steps, I used Gitpod as a development environment where I commited all changes to git version control system. I used the push command in Gitpod to save changes into GitHub:
 
-1. Log in to GitHub and locate the GitHub Repository.
-2. At the top of the Repository, click on the "Settings" Button on the menu.
-3. Scroll down the Settings page until you locate the "Pages" Section.
-4. Under "Source", click the dropdown called "None" and select "Master Branch" and click on save.
-5. The page will automatically refresh.
-6. The now published site link shows at the top of the page.
+The site was deployed to GitHub pages. The steps to deploy are as follows:
+* In the GitHub repository, navigate to the Settings tab
+* From the source section drop-down menu, select the Master Branch
+* Once the master branch has been selected, the page will be automatically refreshed with a detailed ribbon display to indicate the successful deployment.
+* The live link can be found here 
+ > [MS3 Bike Hire in Github](https://github.com/MojosBeans100/MS3-bike-hire)
 
 The project was then deployed to Heroku using the following steps:
 
-1. Log in to Heroku and add a new app.
-2. Link the project from GitHub to Heroku.
-3. Add the CREDS.JSON file to the ConfigVars in Settings.
-4. Add the Python and NodeJS buildpacks.
-5. Manually deploy the project (I used the manual deploy option in order to control what version was deployed to the live environment).
+* Log in to Heroku and add a new app.
+* Link the project from GitHub to Heroku.
+* Add the CREDS.JSON file to the ConfigVars in Settings.
+* Add the Python and NodeJS buildpacks.
+* Manually deploy the project.
+> [MS3 Bike Hire in Heroku](https://dashboard.heroku.com/apps/bike-hire-ms3/deploy/github)
+(https://bike-hire-ms3.herokuapp.com/)
+
 
 # Credits
 * https://mailtrap.io/blog/sending-emails-in-python-tutorial-with-code-examples/
