@@ -53,14 +53,40 @@ If the form has already been processed, it should raise an error and not process
 ### Responses List
 The information submitted from the Google Form is pushed to this worksheet. 
 The last submitted form, or the last row in this sheet, is what is used in the Python Code. 
+Each form is assigned a booking number, which is input into the calendar when booking bikes against dates. 
 
 ### Bike List
+This worksheet is an exhaustives list of all the bikes available in the bike shop. 
+Each bike is assigned a 'bike index' - a number which will reference to that bike.  This is used frequently in the Python code. 
+Each bike also has a brand, description, size, category, price and availability assigned to it. 
+
+The owner should maintain this bike list carefully.
+If a bike is unavailable - eg it has been sold - the owner should mark it as unavailable (select 'No' in column G).  
+This gives this bike a blanket unavailability, and it should not be able to be booked at all, on any given dates. 
+
+If new bikes are bought in, they can be added to the bottom of the list, as opposed to deleting rows, or overwriting current bikes.
 
 ### Size Guide
+This size guide references the correct bike size for various heights.
+The user will add their heights to each bike when submitting the form.
 
 ### Calendar
+The calendar displays which bikes have been booked against which dates, and for which booking number.
+
+For example, in the below picture, it can be seen that for Booking Number 5, two bikes bikes (Bike Index 1, Bike Index 7) have been booked from the 18th - 24th Aug. 
+
+Booking Number 7 has booked Bike Index 10 for 27th - 29th Aug, and so on. 
+
+![Example Booking Calendar](assets/images/example_bike_booking_calendar.JPG)
 
 ### Bookings
+This worksheet adds the booking information to a list, once bikes are booked. 
+
+It will only do this if the bikes *have been booked*, which is different to the responses list, which does not necessarily result in a booking.
+
+This allows the owner to look at the calendar, and reference information about that booking number if required. 
+
+![Example Bookings List](assets/images/bookings_example.JPG)
 
 ### Sort Data
 
@@ -246,6 +272,7 @@ The project was then deployed to Heroku using the following steps:
 
 # Credits
 * https://mailtrap.io/blog/sending-emails-in-python-tutorial-with-code-examples/
+https://www.evanscycles.com/help/bike-sizing-mountain
 
 # Acknowledgements
 * 
