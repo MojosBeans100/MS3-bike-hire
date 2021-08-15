@@ -1,46 +1,78 @@
 # Bike Hire System
 
-## add comment about running of file
-
 ## Portfolio Project 3 - Python Essentials
 
 The purpose of this project was to create a booking system whereby users can submit a Google form to enquire about bike hire, and if there are bikes available, the system will book these bikes out against a calendar, and send a confirmation email to both the user and shop owner. 
 
 # Table of Contents
-1. [Link to app](https://github.com/Michelle3334/battleships#link-to-app)
-2. [Features](https://github.com/Michelle3334/battleships#features)
-3. [Technologies Used](https://github.com/Michelle3334/battleships#technologies-used)
+- [Important links](#important-links)
+- [How to run](#how-to-run)
+- [Features](#features)
+    - [Google Form](#google-form)
+    - [Google Sheets](#google-sheets)
+    - [Python Code](#python-code)
+- [Technologies Used](https://github.com/Michelle3334/battleships#technologies-used)
 4. [Development](https://github.com/Michelle3334/battleships#development)
 5. [Testing](https://github.com/Michelle3334/battleships#testing)
 6. [Deployment](https://github.com/Michelle3334/battleships#deployment)
 7. [Credits](https://github.com/Michelle3334/battleships#credits)
 8. [Acknowledgements](https://github.com/Michelle3334/battleships#acknowledgements)
 
+# Important Links
+See below a list of important links to run this project.
+
+* [Google Sheets](https://docs.google.com/spreadsheets/d/1OVm1E1Y4fHbadi8lmTDPpSb8AZ8jk7E__jBj3q6E0us/edit#gid=869283822)
+* [Google Forms](https://docs.google.com/forms/d/e/1FAIpQLSf65gwDPHQ-m0Fo5ZylJY6MdEva9j5YLtU0maKbP4wvLUBw-Q/viewform)
+* [Heroku App](https://bike-hire-ms3.herokuapp.com/)
+* [Github Project](https://github.com/MojosBeans100/MS3-bike-hire)
+
 # How to run
-The system should be set up so that a form has been submitted, but the code has not yet been run for that form.  Therefore, when the Heroku link is clicked and run, it should process this form. 
+The system should be set up so that for the initial run, a form has been submitted, but the code has not yet been run for that form.  
+Therefore, when the Heroku link is clicked and run, it should process this form. 
 
 It is then up to the tester to submit more forms and re-run the Heroku link.  
-If the form has already been processed, it should raise an error and not process that form again. 
+If the form has already been processed, it should raise an error and not process that form again (this is based on the booking number, which is assigned to each booking.)
 
 # Features
-## Google Form (for user)
+## Google Form
+[Google Forms](https://docs.google.com/forms/d/e/1FAIpQLSf65gwDPHQ-m0Fo5ZylJY6MdEva9j5YLtU0maKbP4wvLUBw-Q/viewform)
+
 * The Google Form should be found as a link on the bike shop's (hypothetical) website.
 * The form consists of basic contact information, then options to book bikes.
 * There is a choice of bike type, and the rider should input their height to allow the correct bike size to be matched to them.
+* The user can allow alternative choices for their bikes if they wish - for example, a different bike type but in the same size.
 * Once submitted, the information from the form is pushed to the Google Sheets database. 
 
 ![Hire Form 1](assets/images/hire_form_1.JPG)  
 ![Hire Form 2](assets/images/hire_form_2.JPG)
 
-The Google Form can be found <a href="https://docs.google.com/forms/d/e/1FAIpQLSf65gwDPHQ-m0Fo5ZylJY6MdEva9j5YLtU0maKbP4wvLUBw-Q/viewform" target="_blank" rel="noopener">here</a>. (Note: Right click on link to open a new tab).
 
-## Google Sheets (for website owner)
+## Google Sheets
+[Google Sheets](https://docs.google.com/spreadsheets/d/1OVm1E1Y4fHbadi8lmTDPpSb8AZ8jk7E__jBj3q6E0us/edit#gid=869283822)
+
+### Responses List
+The information submitted from the Google Form is pushed to this worksheet. 
+The last submitted form, or the last row in this sheet, is what is used in the Python Code. 
+
+### Bike List
+
+### Size Guide
+
+### Calendar
+
+### Bookings
+
+### Sort Data
+
+
+
+
+
 * The Google Sheets is the main library for data for the system.  
 * It hosts a list of the bikes available, along with the sizes, price per day etc.
 * It also assigns each bike a 'bike index' which is frequently used in the system as a reference for each bike.
 * It also displays a basic calendar for the website owner to see calendar availablility, or update the available bikes list when bikes are sold, or new bikes bought in.
 
-The Google Sheet can be found <a href="#" target="_blank" rel="noopener">here</a>. (Note: Right click on link to open a new tab).
 
 <img src ="assets/images/bike_available.JPG">
 <img src ="assets/images/bike_calendar.JPG">
@@ -106,7 +138,12 @@ For example, see similar booking system idea here for a campervan rental site:
 
 * The confirmation email could specify which bikes were original choices, and which were alternatives, and what the alternatives chosen were. 
 
-* There could be an additional feature to remove the last booking.
+* There could be an additional feature to remove the last booking.  This may be required by the owner, and would currently involve manually deleting this information from various worksheets in the workbook. 
+
+* If the user was not happy with alternative bikes, the code still books in those that are available.  
+For example, if they book two bikes, one of which is available and one which is not available, the code will still book in the available one.  
+In reality, this might not make sense as in that case the user would most likely prefer to simply cancel the booking entirely. 
+The code could be re-written:  if the user is not happy with alternatives, ensure all bikes are found before actually writing them to the calendar. 
 
 
 # Technologies Used:

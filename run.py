@@ -718,7 +718,7 @@ def add_booking_to_gs():
 get_latest_response()
 
 
-# create strings for emails (this doesn't work in a function!!??)
+# create strings for emails (this doesn't work in a function...)
 if len(booked_bikes) > 0:
 
     subject = f"Bike hire booking confirmed {user_email_subject}"
@@ -829,4 +829,3 @@ with smtplib.SMTP("smtp.mailtrap.io", 2525) as server:
         server.login("a3b48bd04430b7", "0ec73c699a910c")
         server.sendmail(sender, receiver, message_to_user)
         server.sendmail(sender, receiver, message_to_owner)
-
