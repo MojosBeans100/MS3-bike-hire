@@ -11,12 +11,18 @@ The purpose of this project was to create a booking system whereby users can sub
     - [Google Form](#google-form)
     - [Google Sheets](#google-sheets)
     - [Python Code](#python-code)
-- [Technologies Used](https://github.com/Michelle3334/battleships#technologies-used)
-4. [Development](https://github.com/Michelle3334/battleships#development)
-5. [Testing](https://github.com/Michelle3334/battleships#testing)
-6. [Deployment](https://github.com/Michelle3334/battleships#deployment)
-7. [Credits](https://github.com/Michelle3334/battleships#credits)
-8. [Acknowledgements](https://github.com/Michelle3334/battleships#acknowledgements)
+    - [Confirmation Emails](#confirmation-emails)
+        -[Booked Bikes](#booked-bikes)
+        -[Problem](#problem)
+    - [Future Possible Features](#future-possible-features)
+- [Technologies Used](#technologies-used)
+- [Development](#development)
+- [Testing](#testing)
+    -[Functionality Testing](#functionality-testing)
+    -[Code Validation](#code-validation)
+- [Deployment](#deployment)
+- [Credits](#credits)
+- [Acknowledgements](#acknowledgements)
 
 # Important Links
 See below a list of important links to run this project.
@@ -25,6 +31,7 @@ See below a list of important links to run this project.
 * [Google Forms](https://docs.google.com/forms/d/e/1FAIpQLSf65gwDPHQ-m0Fo5ZylJY6MdEva9j5YLtU0maKbP4wvLUBw-Q/viewform)
 * [Heroku App](https://bike-hire-ms3.herokuapp.com/)
 * [Github Project](https://github.com/MojosBeans100/MS3-bike-hire)
+* [MailTrap]()
 
 # How to run
 The system should be set up so that for the initial run, a form has been submitted, but the code has not yet been run for that form.  
@@ -46,6 +53,7 @@ If the form has already been processed, it should raise an error and not process
 ![Hire Form 1](assets/images/hire_form_1.JPG)  
 ![Hire Form 2](assets/images/hire_form_2.JPG)
 
+[Back to Table of Contents](#table-of-contents)
 
 ## Google Sheets
 [Google Sheets](https://docs.google.com/spreadsheets/d/1OVm1E1Y4fHbadi8lmTDPpSb8AZ8jk7E__jBj3q6E0us/edit#gid=869283822)
@@ -65,6 +73,8 @@ If a bike is unavailable - eg it has been sold - the owner should mark it as una
 This gives this bike a blanket unavailability, and it should not be able to be booked at all, on any given dates. 
 
 If new bikes are bought in, they can be added to the bottom of the list, as opposed to deleting rows, or overwriting current bikes.
+
+![Bikes List](bike_available.JPG)
 
 ### Size Guide
 This size guide references the correct bike size for various heights.
@@ -89,21 +99,10 @@ This allows the owner to look at the calendar, and reference information about t
 ![Example Bookings List](assets/images/bookings_example.JPG)
 
 ### Sort Data
-
-
-
-
-
-* The Google Sheets is the main library for data for the system.  
-* It hosts a list of the bikes available, along with the sizes, price per day etc.
-* It also assigns each bike a 'bike index' which is frequently used in the system as a reference for each bike.
-* It also displays a basic calendar for the website owner to see calendar availablility, or update the available bikes list when bikes are sold, or new bikes bought in.
-
-
-<img src ="assets/images/bike_available.JPG">
-<img src ="assets/images/bike_calendar.JPG">
+This worksheet is largely irrelevant to the owner, simply providing some data validation and basic calculations in the spreadsheet. 
 
 ## Python Code
+
 1. The code initially retrieves information from the Google Sheets database, which was submitted by the user on the Google Form (function: get_latest_response) and outputs a list of dictionaries, with all relevant information about the bikes requested.
 
 2. It uses the rider heights to match to the revelant bike size (function: match_size) and appends this information to the bike dictionaries for each bike.
@@ -122,9 +121,13 @@ This allows the owner to look at the calendar, and reference information about t
  
 9. If there are any bikes which could not be booked, it then looks for alternatives by changing the bike type.  It is more important for the rider to be riding a bike of the correct size, but manageable to provide them with a different bike type if they wish (function: find_alternatives).  This then repeats steps 3 - 9.
 
+10. It then performs a validation function to ensure there have been no double bookings (function: check_double_bookings), calculates the cost of the hire based on bikes booked (function: calculate_cost), retrieves additional information required to send confirmation email (function: booking_details) and creates a string message, and adds to the bookings list (function: add_booking_to_gs).
+
+11. Lastly, the code sends out a confirmation email to both the user and the owner. 
+
 See the process flow below:
 
-<img src = "assets/images/process_flow.JPG">
+![Process Flow For Code](assets/images/process_flow.JPG)
 
 [Back to Table of contents](#table-of-contents)
 
@@ -133,14 +136,14 @@ See the process flow below:
 A confirmation email is sent to both the user and owner when bikes have been booked.
 
 The email to the user provides all details of the booking, and some additional 'useful to know' information.  
-It is kept basic as it is assumed that the hypothetical website would host most information required for hiring (eg what to bring, cancellation terms etc).
+It is kept basic in terms of content - it is assumed that the hypothetical website would host most information required for hiring (eg what to bring, cancellation terms etc) - and style.
 
 The email sent to the owner is simply to notify that a booking has been made, and to urge them to check the details.
 
-[Mailtrap](https://mailtrap.io/) was used as the Email Sandbox Service system, and the following blog post was used to link it to the Python script: [Link](https://mailtrap.io/blog/sending-emails-in-python-tutorial-with-code-examples/).
+[Mailtrap](https://mailtrap.io/) was used as the Email Sandbox Service system. 
 
 See link to the Mailtrap invite, to witness emails being sent and received.  An account will need to be created. 
-* [Share link](https://mailtrap.io/share/1059510/71ec0aa5f495037c06e12ebaebc9e6c1)
+[Share link](https://mailtrap.io/share/1059510/71ec0aa5f495037c06e12ebaebc9e6c1)
 
 User email confirmation:
 
@@ -150,6 +153,7 @@ Owner email confirmation:
 
 ![Owner Email Confirmation](assets/images/owner_email.JPG)
 
+[Back to Table of Contents](#table-of-contents)
 
 ### Problem
 An email is also sent to both user and owner if there has been an issue with the booking. 
@@ -171,6 +175,7 @@ For example, if they book two bikes, one of which is available and one which is 
 In reality, this might not make sense as in that case the user would most likely prefer to simply cancel the booking entirely. 
 The code could be re-written:  if the user is not happy with alternatives, ensure all bikes are found before actually writing them to the calendar. 
 
+[Back to Table of Contents](#table-of-contents)
 
 # Technologies Used:
 ### Programming Languages:
@@ -185,14 +190,16 @@ The code could be re-written:  if the user is not happy with alternatives, ensur
 ### Lucidchart
 * Lucidchart was used to map the workflow for the game.
 
-### Code Institutes mock terminal
+### Code Institutes Mock Terminal
 * Code Institute provided a mock terminal for use for the project.
 
 ### Google Sheets
-* Google Sheets was used to store the bikes information. The link to the sheet can be found <a href=# target="_blank" rel="noopener">here</a>. 
-(Note: Right click on link to open a new tab).
+* Google Sheets was used to store the bikes information. 
 
-[Back to Table of Contents](https://github.com/Michelle3334/battleships#table-of-contents)
+### Google Forms
+* Google Forms was used to create the bike hire form to be submitted by the user. 
+
+[Back to Table of Contents](#table-of-contents)
 
 # Development
 * In order to access google sheets I needed to import the gspread module and credentials from the google.oauth2.service_account.
@@ -200,18 +207,20 @@ The code could be re-written:  if the user is not happy with alternatives, ensur
 
 # Limitations
 ## Number of bikes available for hire
-There had to be a limit to how many bikes which could be hired, therefore this was limited to 5 bikes per form.  In the author's experience from running a similar business, generally larger bookings should be handled differently.
+There had to be a limit to how many bikes which could be hired, therefore this was limited to 5 bikes per form.  
+In the author's experience from running a similar business, generally larger bookings should be handled differently anyway.
  
 # Testing
 ## Functionality testing
-* The code was tested numerous times in Gitpod to validate results. 
+* The code was tested numerous times, with varying scenarios in Gitpod to validate results. 
 
+See an example below:
 
 ## Code Validation
 * The code was checked using Pep8online checker.
 <img src="images/code-check.PNG">
 
-[Back to Table of Contents](https://github.com/Michelle3334/battleships#table-of-contents)
+[Back to Table of Contents](#table-of-contents)
 
 
 ### Error checking
@@ -249,6 +258,8 @@ The author requests that the project grader reviews the commits from 'bike-hire'
 
 ![Gitpod Issue](assets/images/gitpod_stopping_error.JPG) 
 
+[Back to Table of Contents](#table-of-contents)
+
 # Deployment
 The project was deployed to GitHub Pages using the following steps, I used Gitpod as a development environment where I commited all changes to git version control system. I used the push command in Gitpod to save changes into GitHub:
 
@@ -271,10 +282,12 @@ The project was then deployed to Heroku using the following steps:
 
 
 # Credits
-* https://mailtrap.io/blog/sending-emails-in-python-tutorial-with-code-examples/
-https://www.evanscycles.com/help/bike-sizing-mountain
+* [Mailtrap Blog](https://mailtrap.io/blog/sending-emails-in-python-tutorial-with-code-examples/)
+* [Information about bike sizing](https://www.evanscycles.com/help/bike-sizing-mountain)
 
 # Acknowledgements
-* 
+* I'd like to thank my mentor who is always available to advise, encourage, and help when needed.
+* I'd like to thank the owner of Progression Bikes, who provided me with useful information about the bike hire and booking process.
+* I'd like to thank my brother, Euan, who is not too bad at Python himself and problably saved me many hours debugging thoses problems which stem from Python's idosyncrasies.
 
-[Back to Table of Contents](https://github.com/Michelle3334/battleships#table-of-contents)
+[Back to Table of Contents](#table-of-contents)

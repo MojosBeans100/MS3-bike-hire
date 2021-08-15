@@ -1,18 +1,12 @@
-#-*- coding: utf-8 -*-
-
 from google.oauth2.service_account import Credentials
 from datetime import datetime
 from datetime import timedelta
-from datetime import date
-from pprint import pprint
-from socket import gaierror
 
 import gspread
 import random
 import copy
 import time
 import smtplib
-import json
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -437,9 +431,7 @@ def book_bikes(bikes_dictionary):
                 check_availability(bikes_dictionary)
 
         continue
-    
 
-    print(booked_bikes)
     booked_or_not(bikes_dictionary)
 
 
@@ -665,7 +657,7 @@ def booking_details():
                   f"Type:           {booked_bikes[i]['bike_type']}\n" \
                   f"Rider height:   {booked_bikes[i]['user_height']}\n" \
                   f"Bike size:      {booked_bikes[i]['bike_size']}\n" \
-                  f"Price per day:  {booked_bikes[i]['price_per_day']} GBP \n" \
+                  f"Price per day:  {booked_bikes[i]['price_per_day']} GBP \n" \  
                   f"Total price for {len(hire_dates_requested)} days = {bike_costs[i]} GBP\n" \
                   '\n'
 
@@ -700,19 +692,19 @@ def add_booking_to_gs():
     booked_bikes_list = ""
 
     for i in range(len(booked_bikes)):
-        booked_bikes_list += (booked_bikes[i]['booked_bike']) + ', ' 
+        booked_bikes_list += (booked_bikes[i]['booked_bike']) + ', '
 
     print(booked_bikes_list)
 
     bookings_list.update_cell(last_row_in_bookings_list, 1, booking_number)
-    bookings_list.update_cell(last_row_in_bookings_list, 2, responses_list[-1][0])
-    bookings_list.update_cell(last_row_in_bookings_list, 3, hire_dates_requested[0])
-    bookings_list.update_cell(last_row_in_bookings_list, 4, hire_dates_requested[-1])
+    bookings_list.update_cell(last_row_in_bookings_list, 2, responses_list[-1][0])  # noqa
+    bookings_list.update_cell(last_row_in_bookings_list, 3, hire_dates_requested[0])  # noqa
+    bookings_list.update_cell(last_row_in_bookings_list, 4, hire_dates_requested[-1])  # noqa
     bookings_list.update_cell(last_row_in_bookings_list, 5, len(booked_bikes))
-    bookings_list.update_cell(last_row_in_bookings_list, 6, responses_list[-1][1])
-    bookings_list.update_cell(last_row_in_bookings_list, 7, responses_list[-1][2])
+    bookings_list.update_cell(last_row_in_bookings_list, 6, responses_list[-1][1])  # noqa
+    bookings_list.update_cell(last_row_in_bookings_list, 7, responses_list[-1][2])  # noqa
     bookings_list.update_cell(last_row_in_bookings_list, 8, booked_bikes_list)
-    bookings_list.update_cell(last_row_in_bookings_list, 9, str(datetime.now()))
+    bookings_list.update_cell(last_row_in_bookings_list, 9, str(datetime.now()))  # noqa
 
 
 get_latest_response()
@@ -794,7 +786,7 @@ End of email
 
 else:
 
-    subject = f"Sorry - we were not successful with your booking for {user_email_subject}"
+    subject = f"Sorry - we were not successful with your booking for {user_email_subject}" # noqa
 
     message_to_user = f"""\
 Subject: {subject}
@@ -807,7 +799,7 @@ Unfortunately we could not complete your booking.
 
 If you'd like to enquire further, please phone us on
 08796 236458 or email us at bike_shop_owner@gmail.com
-and we'd be happy to help you arrange something else. 
+and we'd be happy to help you arrange something else.
 
 Regards
 Bike Shop
@@ -818,7 +810,7 @@ Subject: {subject}
 To: {sender}
 From: {sender}
 
-There was a booking form submitted by {responses_list[-1][1]} 
+There was a booking form submitted by {responses_list[-1][1]}
 at {responses_list[-1][0]}, but the booking could not be processed.
 
 Please consult the Google Sheets database.
@@ -826,6 +818,6 @@ Please consult the Google Sheets database.
 
 # send the emails
 with smtplib.SMTP("smtp.mailtrap.io", 2525) as server:
-        server.login("a3b48bd04430b7", "0ec73c699a910c")
-        server.sendmail(sender, receiver, message_to_user)
-        server.sendmail(sender, receiver, message_to_owner)
+    server.login("a3b48bd04430b7", "0ec73c699a910c")
+    server.sendmail(sender, receiver, message_to_user)
+    server.sendmail(sender, receiver, message_to_owner)
