@@ -16,6 +16,12 @@ The purpose of this project was to create a booking system whereby users can sub
 7. [Credits](https://github.com/Michelle3334/battleships#credits)
 8. [Acknowledgements](https://github.com/Michelle3334/battleships#acknowledgements)
 
+# How to run
+The system should be set up so that a form has been submitted, but the code has not yet been run for that form.  Therefore, when the Heroku link is clicked and run, it should process this form. 
+
+It is then up to the tester to submit more forms and re-run the Heroku link.  
+If the form has already been processed, it should raise an error and not process that form again. 
+
 # Link to Google Form
 The Google Form can be found <a href="https://docs.google.com/forms/d/e/1FAIpQLSf65gwDPHQ-m0Fo5ZylJY6MdEva9j5YLtU0maKbP4wvLUBw-Q/viewform" target="_blank" rel="noopener">here</a>. (Note: Right click on link to open a new tab).
 
@@ -75,6 +81,9 @@ However, it is kept basic as it is assumed that the hypothetical website would h
 The email sent to the owner is simply to notify that a booking has been made, and to urge them to check the details.
 
 [Mailtrap](https://mailtrap.io/) was used as the Email Sandbox Service system, and the following blog post was used to link it to the Python script: [Link](https://mailtrap.io/blog/sending-emails-in-python-tutorial-with-code-examples/).
+
+See link to the Mailtrap invite, to witness emails being sent and received.  An account will need to be created. 
+* [Share link](https://mailtrap.io/share/1059510/71ec0aa5f495037c06e12ebaebc9e6c1)
 
 CONFIRMATION EMAIL PICS
 
