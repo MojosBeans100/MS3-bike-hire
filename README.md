@@ -22,11 +22,6 @@ The system should be set up so that a form has been submitted, but the code has 
 It is then up to the tester to submit more forms and re-run the Heroku link.  
 If the form has already been processed, it should raise an error and not process that form again. 
 
-# Link to Google Form
-The Google Form can be found <a href="https://docs.google.com/forms/d/e/1FAIpQLSf65gwDPHQ-m0Fo5ZylJY6MdEva9j5YLtU0maKbP4wvLUBw-Q/viewform" target="_blank" rel="noopener">here</a>. (Note: Right click on link to open a new tab).
-
-# Link to Google Sheets
-
 # Features
 ## Google Form (for user)
 * The Google Form should be found as a link on the bike shop's (hypothetical) website.
@@ -37,11 +32,15 @@ The Google Form can be found <a href="https://docs.google.com/forms/d/e/1FAIpQLS
 ![Hire Form 1](assets/images/hire_form_1.JPG)  
 ![Hire Form 2](assets/images/hire_form_2.JPG)
 
+The Google Form can be found <a href="https://docs.google.com/forms/d/e/1FAIpQLSf65gwDPHQ-m0Fo5ZylJY6MdEva9j5YLtU0maKbP4wvLUBw-Q/viewform" target="_blank" rel="noopener">here</a>. (Note: Right click on link to open a new tab).
+
 ## Google Sheets (for website owner)
 * The Google Sheets is the main library for data for the system.  
 * It hosts a list of the bikes available, along with the sizes, price per day etc.
 * It also assigns each bike a 'bike index' which is frequently used in the system as a reference for each bike.
-* It also displays a basic calendar for the website owner to see calendar availablility, or update the available bikes list when bikes are sold, or new bikes bought in. 
+* It also displays a basic calendar for the website owner to see calendar availablility, or update the available bikes list when bikes are sold, or new bikes bought in.
+
+The Google Sheet can be found <a href="#" target="_blank" rel="noopener">here</a>. (Note: Right click on link to open a new tab).
 
 <img src ="assets/images/bike_available.JPG">
 <img src ="assets/images/bike_calendar.JPG">
