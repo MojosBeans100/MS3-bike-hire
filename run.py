@@ -37,6 +37,7 @@ booked_bikes = []
 not_booked_bikes = []
 bikes_dictionary = []
 unavailable_bikes = []
+unavailable_bikes_check = []
 bike_costs = []
 total_cost = ""
 hire_dates_requested = []
@@ -224,6 +225,25 @@ def find_unavailable_bikes():
                     # if not calendar[i][0] in unavailable_bikes:
                     unavailable_bikes.append(calendar[i][0])
 
+    # NEW CODE
+    for p in range(len(hire_dates_requested)):
+
+        for x in range(len(calendar2[2])):
+            
+            if calendar2[2][x] == hire_dates_requested[p]:
+                #print("MATCHED DATES")
+               # print(x)
+
+                for q in range(len(calendar2)):
+                    
+                    if calendar2[q][x] != "" and q > 3 and calendar2[q][0] not in unavailable_bikes_check:
+                        
+                        print(calendar2[q][x])
+                        unavailable_bikes_check.append(calendar2[q][0])
+
+    print(unavailable_bikes_check)
+
+
     # also look for blanket unavailability in bikes list
     # only do this ONCE
     if len(iterations) == 0:
@@ -236,7 +256,7 @@ def find_unavailable_bikes():
                 unavailable_bikes.append(bikes_list[q][0])
 
     print(f"Unavailable bikes:- {unavailable_bikes}")
-    match_suitable_bikes(bikes_dictionary)
+    #match_suitable_bikes(bikes_dictionary)
 
 
 def match_suitable_bikes(bikes_dictionary):
@@ -657,7 +677,7 @@ def booking_details():
                   f"Type:           {booked_bikes[i]['bike_type']}\n" \
                   f"Rider height:   {booked_bikes[i]['user_height']}\n" \
                   f"Bike size:      {booked_bikes[i]['bike_size']}\n" \
-                  f"Price per day:  {booked_bikes[i]['price_per_day']} GBP \n" \  
+                  f"Price per day:  {booked_bikes[i]['price_per_day']} GBP \n" \
                   f"Total price for {len(hire_dates_requested)} days = {bike_costs[i]} GBP\n" \
                   '\n'
 
@@ -710,114 +730,114 @@ def add_booking_to_gs():
 get_latest_response()
 
 
-# create strings for emails (this doesn't work in a function...)
-if len(booked_bikes) > 0:
+# # create strings for emails (this doesn't work in a function...)
+# if len(booked_bikes) > 0:
 
-    subject = f"Bike hire booking confirmed {user_email_subject}"
+#     subject = f"Bike hire booking confirmed {user_email_subject}"
 
-    message_to_user = f"""\
-Subject: {subject}
-To: {receiver}
-From: {sender}
+#     message_to_user = f"""\
+# Subject: {subject}
+# To: {receiver}
+# From: {sender}
 
-Hello {responses_list[-1][1].split(' ', 1)[0]}!
+# Hello {responses_list[-1][1].split(' ', 1)[0]}!
 
-Thank you for booking with us.  Below are your booking details:
-Booking name:               {responses_list[-1][1]}
-Booking contact number:     {responses_list[-1][2]}
-Dates of hire:              {user_email_subject}
-Number of bikes booked:     {len(booked_bikes)}
+# Thank you for booking with us.  Below are your booking details:
+# Booking name:               {responses_list[-1][1]}
+# Booking contact number:     {responses_list[-1][2]}
+# Dates of hire:              {user_email_subject}
+# Number of bikes booked:     {len(booked_bikes)}
 
-Booked bikes:
-{email_booked_bike}
+# Booked bikes:
+# {email_booked_bike}
 
-Bikes we could not book:
-{email_not_booked_bike}
+# Bikes we could not book:
+# {email_not_booked_bike}
 
-Important Information:
-Time out:  9am on first day of hire
-Time due back:  4.45pm on last day of hire
+# Important Information:
+# Time out:  9am on first day of hire
+# Time due back:  4.45pm on last day of hire
 
-Terms of Hire:
-You may cancel your booking any time up until 24 hrs
-before the first date of hire.
-The total payable amount must be paid before you turn up,
-or on the first date of hire.
+# Terms of Hire:
+# You may cancel your booking any time up until 24 hrs
+# before the first date of hire.
+# The total payable amount must be paid before you turn up,
+# or on the first date of hire.
 
-Please read the safety brief provided on the website.
-If you are due to be late back, please let the shop owner know.
-There may be additional charges for returning after the time due back.
+# Please read the safety brief provided on the website.
+# If you are due to be late back, please let the shop owner know.
+# There may be additional charges for returning after the time due back.
 
-Payment:
-You can pay by phone on 08796 236458, or pay on the
-first day of hire by card or cash.
-The total amount payable for this booking is: {total_cost} GBP
+# Payment:
+# You can pay by phone on 08796 236458, or pay on the
+# first day of hire by card or cash.
+# The total amount payable for this booking is: {total_cost} GBP
 
-Want to amend your booking?
-Please call 08796 236458 or email info@bike_shop.com
+# Want to amend your booking?
+# Please call 08796 236458 or email info@bike_shop.com
 
-See you soon!
+# See you soon!
 
-Regards
-Bike Shop
-"""
+# Regards
+# Bike Shop
+# """
 
-    message_to_owner = f"""\
-Subject: {subject}
-To: {sender}
-From: {sender}
+#     message_to_owner = f"""\
+# Subject: {subject}
+# To: {sender}
+# From: {sender}
 
-The following bikes have been booked for {user_email_subject}:
+# The following bikes have been booked for {user_email_subject}:
 
-Booking name:               {responses_list[-1][1]}
-Booking contact number:     {responses_list[-1][2]}
-Dates of hire:              {user_email_subject}
-Number of bikes booked:     {len(booked_bikes)}
-Total cost:                 {total_cost}
+# Booking name:               {responses_list[-1][1]}
+# Booking contact number:     {responses_list[-1][2]}
+# Dates of hire:              {user_email_subject}
+# Number of bikes booked:     {len(booked_bikes)}
+# Total cost:                 {total_cost}
 
-Booked bikes:
-{email_booked_bike}
+# Booked bikes:
+# {email_booked_bike}
 
-Bikes we could not book:
-{email_not_booked_bike}
+# Bikes we could not book:
+# {email_not_booked_bike}
 
-End of email
-"""
+# End of email
+# """
 
-else:
+# else:
 
-    subject = f"Sorry - we were not successful with your booking for {user_email_subject}" # noqa
+#     subject = f"Sorry - we were not successful with your booking for {user_email_subject}" # noqa
 
-    message_to_user = f"""\
-Subject: {subject}
-To: {receiver}
-From: {sender}
+#     message_to_user = f"""\
+# Subject: {subject}
+# To: {receiver}
+# From: {sender}
 
-Hello {responses_list[-1][1].split(' ', 1)[0]}
+# Hello {responses_list[-1][1].split(' ', 1)[0]}
 
-Unfortunately we could not complete your booking.
+# Unfortunately we could not complete your booking.
 
-If you'd like to enquire further, please phone us on
-08796 236458 or email us at bike_shop_owner@gmail.com
-and we'd be happy to help you arrange something else.
+# If you'd like to enquire further, please phone us on
+# 08796 236458 or email us at bike_shop_owner@gmail.com
+# and we'd be happy to help you arrange something else.
 
-Regards
-Bike Shop
-        """
+# Regards
+# Bike Shop
+#         """
 
-    message_to_owner = f"""\
-Subject: {subject}
-To: {sender}
-From: {sender}
+#     message_to_owner = f"""\
+# Subject: {subject}
+# To: {sender}
+# From: {sender}
 
-There was a booking form submitted by {responses_list[-1][1]}
-at {responses_list[-1][0]}, but the booking could not be processed.
+# There was a booking form submitted by {responses_list[-1][1]}
+# at {responses_list[-1][0]}, but the booking could not be processed.
 
-Please consult the Google Sheets database.
-        """
+# Please consult the Google Sheets database.
+#         """
 
-# send the emails
-with smtplib.SMTP("smtp.mailtrap.io", 2525) as server:
-    server.login("a3b48bd04430b7", "0ec73c699a910c")
-    server.sendmail(sender, receiver, message_to_user)
-    server.sendmail(sender, receiver, message_to_owner)
+# # send the emails
+# with smtplib.SMTP("smtp.mailtrap.io", 2525) as server:
+#     server.login("a3b48bd04430b7", "0ec73c699a910c")
+#     server.sendmail(sender, receiver, message_to_user)
+#     server.sendmail(sender, receiver, message_to_owner)
