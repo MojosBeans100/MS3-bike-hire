@@ -70,12 +70,12 @@ See the process flow below:
 
 [Back to Table of contents](#table-of-contents)
 
-## Confirmation emails (for both user and owner)
+## Confirmation emails
 ### Booked Bikes
 A confirmation email is sent to both the user and owner when bikes have been booked.
 
 The email to the user provides all details of the booking, and some additional 'useful to know' information.  
-However, it is kept basic as it is assumed that the hypothetical website would host most information required for hiring (eg what to bring, cancellation terms etc).
+It is kept basic as it is assumed that the hypothetical website would host most information required for hiring (eg what to bring, cancellation terms etc).
 
 The email sent to the owner is simply to notify that a booking has been made, and to urge them to check the details.
 
@@ -84,7 +84,13 @@ The email sent to the owner is simply to notify that a booking has been made, an
 See link to the Mailtrap invite, to witness emails being sent and received.  An account will need to be created. 
 * [Share link](https://mailtrap.io/share/1059510/71ec0aa5f495037c06e12ebaebc9e6c1)
 
-CONFIRMATION EMAIL PICS
+User email confirmation:
+
+![User Email Confirmation](assets/images/user_email.JPG)
+
+Owner email confirmation:
+
+![Owner Email Confirmation](assets/images/owner_email.JPG)
 
 
 ### Problem
@@ -97,6 +103,10 @@ An email is also sent to both user and owner if there has been an issue with the
 For example, see similar booking system idea here for a campervan rental site:
 
 <img src = "assets/images/availability_calendar_idea.JPG">
+
+* The confirmation email could specify which bikes were original choices, and which were alternatives, and what the alternatives chosen were. 
+
+* There could be an additional feature to remove the last booking.
 
 
 # Technologies Used:
@@ -131,8 +141,9 @@ There had to be a limit to how many bikes which could be hired, therefore this w
  
 # Testing
 ## Functionality testing
-* Each piece of code was tested in Gitpod as well as in Python Tutor (where possible).
-* Family members and friends were asked to test the app once the final product was deployed.
+* The code was tested numerous times in Gitpod to validate results. 
+
+
 ## Code Validation
 * The code was checked using Pep8online checker.
 <img src="images/code-check.PNG">
