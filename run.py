@@ -43,8 +43,8 @@ hire_dates_requested = []
 dates_filled_in_previous = sort_data[1][1]
 sender = "bike_shop_owner@gmail.com"
 receiver = responses_list[-1][3]
-user_email_subject = ""
 iterations = []
+user_email_subject = ""
 
 def error_func(this_error, error_comment):
     """
@@ -189,9 +189,16 @@ def find_unavailable_bikes(bikes_dictionary):
 
     # get users selected date
     users_start_date = responses_list[-1][5]
+    today = datetime.now().date()
 
-    # put date in readable format
-    start_date = datetime.strptime(users_start_date, "%m/%d/%Y")
+    # put date into different format
+    start_date = datetime.strptime(users_start_date, "%m/%d/%Y").date()
+    
+    # first check dates submitted are not in the past
+    if start_date < today:
+        this_error = "Dates of hire not valid"
+        error_comment = "Dates submitted on form are in the past. User notified of problem."
+        error_func(this_error, error_comment)
 
     # calculate end date based on the hire duration
     delta = timedelta(days=int(responses_list[-1][6]) - 1)
