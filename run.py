@@ -46,6 +46,7 @@ sender = "bike_shop_owner@gmail.com"
 receiver = responses_list[-1][3]
 iterations = []
 
+print(update_bookings_list[0])
 
 def error_func(this_error):
     """
@@ -117,34 +118,30 @@ def get_latest_response():
     print(f"Booking number: {booking_number}")
     print(f"Submitted: {last_response[0]}")
 
-    booking_number_occured(bikes_dictionary)
+    booking_processed()
 
 
-def booking_number_occured(bikes_dictionary):
+def booking_processed():
     """
     This function determines if this booking number
     has already been run through the booking process
     If it has, stop
     """
 
-    # for all bike indexes in the calendar
-    for i in range(len(calendar2)):
+    # for all bookings submitted
+    for j in range(len(update_bookings_list)):
 
-        # and for all cells in that row
-        for j in range(len(calendar2[i])):
+        # if the booking no. booked is same as current being processed
+        if update_bookings_list[j][0] == str(booking_number):
 
-            # do not count the first column (ie Bike Index)
-            if j > 0:
+            # print to terminal and stop process
+            print(f"This booking was processed on {update_bookings_list[j][8]}")
+            this_error = ("This booking has already been completed")
 
-                # look for the booking number
-                if str(bikes_dictionary[0]['booking_number']) \
-                     == calendar2[i][j]:
-                    this_error = ("This booking has already been completed")
-
-    match_size(bikes_dictionary)
+    #match_size()
 
 
-def match_size(bikes_dictionary):
+def match_size():
     """
     Match the heights specified in user form to the correct bike size
     """
@@ -161,10 +158,10 @@ def match_size(bikes_dictionary):
             if (gs_size_guide[j][4]) == bikes_dictionary[i]['user_height']:
                 bikes_dictionary[i]['bike_size'] = gs_size_guide[j][8]
 
-    match_price(bikes_dictionary)
+    match_price()
 
 
-def match_price(bikes_dictionary):
+def match_price():
     """
     Fetch the price per day based on the bike type selected
     and append to dictionary
@@ -229,7 +226,7 @@ def find_unavailable_bikes():
                         # reference this bike and append to unavailable bikes
                         unavailable_bikes.append(calendar2[q][0])
 
-    # also look for blanket unavailability in bikes list
+    # also look for blanket unavailability in bikes list column G
     # only do this ONCE
     if len(iterations) == 0:
 
@@ -237,14 +234,16 @@ def find_unavailable_bikes():
         for q in range(len(bikes_list)):
 
             # if Available? is No, append bike index to unavailable_bikes
-            if bikes_list[q][6] == "No":
+            if bikes_list[q][6] == "No" and \
+                    bikes_list[q][0] not in unavailable_bikes:
+
                 unavailable_bikes.append(bikes_list[q][0])
 
     print(f"Unavailable bikes:- {unavailable_bikes}")
-    #match_suitable_bikes(bikes_dictionary)
+    # match_suitable_bikes()
 
 
-def match_suitable_bikes(bikes_dictionary):
+def match_suitable_bikes():
     """
     Use submitted form info to find selection of appropriate bikes
     """
@@ -267,11 +266,11 @@ def match_suitable_bikes(bikes_dictionary):
             bikes_dictionary[j]['num_bikes_available'] \
                 = (len(bikes_dictionary[j]['possible_matches']))
 
-    check_availability(bikes_dictionary)
-    book_bikes(bikes_dictionary)
+    check_availability()
+    book_bikes()
 
 
-def check_availability(bikes_dictionary):
+def check_availability():
     """
     Cross reference possible matches in bike dictionaries with bike
     indexes in 'unavailable_bikes' list to check availability
