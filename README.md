@@ -152,6 +152,7 @@ Errors call up the function error_func, which exits the code with a raise System
 1. Invalid dates - the Google Form does allow for past dates to be submitted.  In the function find_unavailable_bikes, a quick check is performed to ensure that the start of hire date is after today's date. 
 
 2. Double booking - this is one of the more concerning errors, and the code should not allow this to occur. 
+
     * The shop owner has the ability to choose a blanket availability to each bike index.  This allows for, for example,  mechanical problems with bikes thus rendering them unbookable for a few days, or the bike is sold and no longer present in the hire fleet.
 
     * The code checks the dates in the calendar and returns unavailable bikes for those dates.
@@ -162,13 +163,8 @@ Errors call up the function error_func, which exits the code with a raise System
 
     * The code checks that the number of cells filled into the calendar during the booking process is equal to the number of cells filled in before current booking + (number of dates of hire x the number of bikes booked) - (function: check_double_bookings). 
 
+    * Should an unavailable bike not be added to the unavailable bikes list, the code also ensures that when writing the booking number to the calendar, it can only do so into blank cells. 
 
-### Error Checking
-One of the most important aspects of a booking system is to ensure no double bookings occur.  For this reason, a number of error-checking measures are provided in the code.
-
-
-
-With all these measures, it should not be possible to double book a bike. 
 
 ## Confirmation emails
 ### Booked Bikes

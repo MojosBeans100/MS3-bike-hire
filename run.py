@@ -19,21 +19,18 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('BIKES')
 
+# Get data from google sheets
 bikes_list = SHEET.worksheet('bike_list').get_all_values()
-bikes_list2 = SHEET.worksheet('bike_list')
 responses_list = SHEET.worksheet('form_responses').get_all_values()
 sort_data = SHEET.worksheet('sort_data').get_all_values()
-calendar = SHEET.worksheet('calendar').get_all_values()
 bookings_list = SHEET.worksheet('bookings')
 update_bookings_list = SHEET.worksheet('bookings').get_all_values()
 calendar2 = SHEET.worksheet('calendar2').get_all_values()
 update_calendar2 = SHEET.worksheet('calendar2')
-update_calendar = SHEET.worksheet('calendar')
 gs_size_guide = SHEET.worksheet('size_guide').get_all_values()
 
 # Global Variables
 booked_bikes = []
-# booked_bikes_list = ""
 not_booked_bikes = []
 bikes_dictionary = []
 unavailable_bikes = []
@@ -44,7 +41,7 @@ dates_filled_in_previous = sort_data[1][1]
 sender = "bike_shop_owner@gmail.com"
 receiver = responses_list[-1][3]
 iterations = []
-user_email_subject = ""
+#user_email_subject = ""
 
 def error_func(this_error, error_comment):
     """
@@ -246,7 +243,7 @@ def find_unavailable_bikes(bikes_dictionary):
 
                 unavailable_bikes.append(bikes_list[q][0])
 
-    print(f"Unavailable bikes:- {unavailable_bikes}")
+    print(f">> unavailable bikes:- {unavailable_bikes}")
     match_suitable_bikes(bikes_dictionary)
 
 
@@ -303,7 +300,7 @@ def remove_unavailable_bikes(bikes_dictionary):
                 (bikes_dictionary[j]['possible_matches']).\
                     remove(unavailable_bikes[k])
 
-    print("Checking availability..")
+    print(">> checking availability..")
 
 
 def book_bikes_to_calendar(choose_bike_index):
@@ -455,10 +452,6 @@ def find_alternatives(bikes_dictionary):
         # return to relevant function to perform again
         # only need to re-match the price, not the size as we know
         # the size is the same
-
-        # print(f"Finding alternatives for {not_booked_bikes}")
-        time.sleep(3)
-
         match_price(bikes_dictionary)
 
 
@@ -603,6 +596,7 @@ def booking_details():
     This function organises the text to be sent
     in an email to user and owner to confirm booking
     """
+    global user_email_subject
 
     # create string for hire dates
     if len(hire_dates_requested) > 1:
@@ -653,6 +647,7 @@ def booking_details():
     if len(not_booked_bikes) == 0:
         email_not_booked_bike = "None"
 
+    # only write booking to booking list if bikes have been booked
     if len(booked_bikes) > 0:
         add_booking_to_gs()
 
@@ -801,33 +796,5 @@ with smtplib.SMTP("smtp.mailtrap.io", 2525) as server:
     server.sendmail(sender, receiver, message_to_owner)
 
 
+print(">> END OF SCRIPT")
 raise SystemExit
-
-
-
-    # # for all bike indexes in the gs calendar
-    # for i in range(len(calendar)):
-
-    #     # if bike index on calendar does NOT equal bike index in
-    #     # dictionary, we are not interested in this index,
-    #     # so increment i
-    #     if calendar[i][0] != choose_bike_index:
-    #         continue
-
-    #     else:
-    #         # if the bike indexes do match, determine the next empty
-    #         # cell next to that bike index
-    #         last_date_in_row = len((calendar[i]))-(calendar[i].count('') - 1)
-
-    #         # loop through the hire dates requested
-    #         for k in range(len(hire_dates_requested)):
-
-    #             # update the google sheet by inputting all hire dates
-    #             # requested against that bike index
-    #             update_calendar.update_cell(i+1,
-    #                                         last_date_in_row,
-    #                                         hire_dates_requested[k])
-
-    #             # increment the last empty cell ref, so we are not
-    #             # overwriting the same cell
-    #             last_date_in_row += 1
