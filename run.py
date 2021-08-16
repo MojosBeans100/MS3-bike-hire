@@ -46,8 +46,6 @@ receiver = responses_list[-1][3]
 user_email_subject = ""
 iterations = []
 
-print(update_bookings_list[0])
-
 def error_func(this_error, error_comment):
     """
     This function is called up whenever there is an error
@@ -548,10 +546,6 @@ def check_double_bookings():
         this_error = "The number of dates added to calendar is incorrect."
         error_func(this_error, error_comment)
         # send email to owner???
-
-    print(dates_filled_in_now)
-    print(num_dates_booked)
-    print(num_dates_calendar)
 
     print(">> checked calendar for double bookings")
     calculate_cost()
