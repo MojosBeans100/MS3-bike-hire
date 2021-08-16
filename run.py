@@ -47,12 +47,13 @@ iterations = []
 
 print(update_bookings_list[0])
 
-def error_func(this_error):
+def error_func(this_error, error_comment):
     """
     This function is called up whenever there is an error
     It does not allow the booking to go ahead
     """
     print(f"The error is: {this_error}.")
+    print(error_comment)
     print("The process will stop.")
 
     raise SystemExit
@@ -117,10 +118,10 @@ def get_latest_response():
     print(f"Booking number: {booking_number}")
     print(f"Submitted: {last_response[0]}")
 
-    booking_processed()
+    booking_processed(bikes_dictionary)
 
 
-def booking_processed():
+def booking_processed(bikes_dictionary):
     """
     This function determines if this booking number
     has already been run through the booking process
@@ -134,14 +135,14 @@ def booking_processed():
         if update_bookings_list[j][0] == str(booking_number):
 
             # print to terminal and stop process
-            print(f"This booking was processed on {update_bookings_list[j][8]}")
             this_error = ("This booking has already been completed")
-            error_func(this_error)
+            error_comment = f"This booking was processed on {update_bookings_list[j][8]}"
+            error_func(this_error, error_comment)
 
-    match_size()
+    match_size(bikes_dictionary)
 
 
-def match_size():
+def match_size(bikes_dictionary):
     """
     Match the heights specified in user form to the correct bike size
     """
@@ -158,10 +159,10 @@ def match_size():
             if (gs_size_guide[j][4]) == bikes_dictionary[i]['user_height']:
                 bikes_dictionary[i]['bike_size'] = gs_size_guide[j][8]
 
-    match_price()
+    match_price(bikes_dictionary)
 
 
-def match_price():
+def match_price(bikes_dictionary):
     """
     Fetch the price per day based on the bike type selected
     and append to dictionary
@@ -179,10 +180,10 @@ def match_price():
             if (bikes_list[j][4]) == bikes_dictionary[i]['bike_type']:
                 bikes_dictionary[i]['price_per_day'] = bikes_list[j][5]
 
-    find_unavailable_bikes()
+    find_unavailable_bikes(bikes_dictionary)
 
 
-def find_unavailable_bikes():
+def find_unavailable_bikes(bikes_dictionary):
     """
     Define a list of unavailable bikes for those dates
     """
@@ -240,10 +241,10 @@ def find_unavailable_bikes():
                 unavailable_bikes.append(bikes_list[q][0])
 
     print(f"Unavailable bikes:- {unavailable_bikes}")
-    # match_suitable_bikes()
+    match_suitable_bikes(bikes_dictionary)
 
 
-def match_suitable_bikes():
+def match_suitable_bikes(bikes_dictionary):
     """
     Use submitted form info to find selection of appropriate bikes
     """
@@ -266,11 +267,11 @@ def match_suitable_bikes():
             bikes_dictionary[j]['num_bikes_available'] \
                 = (len(bikes_dictionary[j]['possible_matches']))
 
-    remove_unavailable_bikes()
-    book_bikes()
+    remove_unavailable_bikes(bikes_dictionary)
+    book_bikes(bikes_dictionary)
 
 
-def remove_unavailable_bikes():
+def remove_unavailable_bikes(bikes_dictionary):
     """
     Cross reference possible matches in bike dictionaries with bike
     indexes in 'unavailable_bikes' list to check availability
@@ -305,33 +306,6 @@ def book_bikes_to_calendar(choose_bike_index):
     in google sheets
     """
 
-    # for all bike indexes in the gs calendar
-    for i in range(len(calendar)):
-
-        # if bike index on calendar does NOT equal bike index in
-        # dictionary, we are not interested in this index,
-        # so increment i
-        if calendar[i][0] != choose_bike_index:
-            continue
-
-        else:
-            # if the bike indexes do match, determine the next empty
-            # cell next to that bike index
-            last_date_in_row = len((calendar[i]))-(calendar[i].count('') - 1)
-
-            # loop through the hire dates requested
-            for k in range(len(hire_dates_requested)):
-
-                # update the google sheet by inputting all hire dates
-                # requested against that bike index
-                update_calendar.update_cell(i+1,
-                                            last_date_in_row,
-                                            hire_dates_requested[k])
-
-                # increment the last empty cell ref, so we are not
-                # overwriting the same cell
-                last_date_in_row += 1
-
     # for all bike indexes
     for x in range(len(calendar2)):
 
@@ -353,7 +327,7 @@ def book_bikes_to_calendar(choose_bike_index):
                                     z+1,
                                     bikes_dictionary[0]['booking_number'])
 
-    print(f"Bike index {choose_bike_index} booked to calendar for {hire_dates_requested}")
+    print(f"Bike index {choose_bike_index} booked to calendar for {hire_dates_requested[0]} - {hire_dates_requested[-1]}")
     time.sleep(3)
 
 
@@ -402,8 +376,8 @@ def book_bikes(bikes_dictionary):
                 if bikes_dictionary[j] in not_booked_bikes:
                     not_booked_bikes.remove(bikes_dictionary[j])
 
-                # re-run remove_unavailable_bikes to remove this bike index from
-                # other bike dicts
+                # re-run remove_unavailable_bikes to remove this
+                # bike index from other bike dicts
                 remove_unavailable_bikes(bikes_dictionary)
 
             # if there is more than 1 bike available
@@ -430,8 +404,8 @@ def book_bikes(bikes_dictionary):
                 if bikes_dictionary[j] in not_booked_bikes:
                     not_booked_bikes.remove(bikes_dictionary[j])
 
-                # re-run remove_unavailable_bikes to remove this bike index from
-                # other bike dicts
+                # re-run remove_unavailable_bikes to remove this
+                # bike index from other bike dicts
                 remove_unavailable_bikes(bikes_dictionary)
 
         continue
@@ -488,32 +462,37 @@ def booked_or_not(bikes_dictionary):
     If there are non-booked bikes and user is happy with alternative
     call up find_alternatives
     """
-    print(f"Number of iterations = {len(iterations)+1}")
-    time.sleep(5)
+    # print(f"Number of iterations = {len(iterations)+1}")
+    # time.sleep(5)
 
     # for all bikes dictionaries
     for j in range(len(bikes_dictionary)):
 
         # if the status does not equal Booked, they are
         # NOT booked, so append them to not_booked_bikes list
-        if bikes_dictionary[j]['status'] != "Booked" and bikes_dictionary[j] not in not_booked_bikes:
+        if bikes_dictionary[j]['status'] != "Booked" and \
+                 bikes_dictionary[j] not in not_booked_bikes:
+
             not_booked_bikes.append(bikes_dictionary[j])
 
+        # if the bike has been booked but is still in not_booked_bikes
+        # remove it
         if bikes_dictionary[j]['status'] == "Booked"\
                 and bikes_dictionary[j] in not_booked_bikes:
 
             not_booked_bikes.remove(bikes_dictionary[j])
 
+    # if all bikes have been booked
     if len(booked_bikes) == num_req_bikes:
         print("All bikes found.. sending confirmation emails")
         check_double_bookings()
 
     # if not all bikes have been booked
-    # re-assign the bike dictionary to not_booked_bikes
+    # re-assign the bike dictionary to equal not_booked_bikes
     # to perform the iteration again for only these bikes
     elif responses_list[-1][17] == "Yes":
         bikes_dictionary = copy.copy(not_booked_bikes)
-        iterations.append("ITERATION")
+        iterations.append("1")
 
         # only allow max 4 iterations
         if len(iterations) > 4:
@@ -562,27 +541,13 @@ def check_double_bookings():
 
     # check that these two numbers match
     if num_dates_booked != num_dates_calendar:
-        this_error = "DOUBLE BOOKED"
-        error_func(this_error)
-        # send email to owner
+        error_comment = f"{num_dates_booked} should have been added to the calendar.\
+            {num_dates_calendar} were added.  Please check any bikes/dates added to booking number {booking_number}."
+        this_error = "The number of dates added to calendar is incorrect."
+        error_func(this_error, error_comment)
+        # send email to owner???
 
-    # SECOND CHECK
-    # check whether there are two dates the same in
-    # dates appended to bike indexes in calendar i.e.
-    # a bike has been double booked
-    # for number of bikes in calendar
-    for i in range(len(calendar)):
-
-        # iterate through range of dates appended to that bike index
-        for j in range(len(calendar[i])):
-
-            # if that date appears more than once in this list of dates
-            if calendar[i].count(calendar[i][j]) > 1 and calendar[i][j] != "":
-
-                # raise an error
-                this_error = "DOUBLE BOOKED"
-                error_func(this_error)
-
+    print(">> checked calendar for double bookings")
     calculate_cost()
 
 
@@ -688,18 +653,19 @@ def booking_details():
 
 def add_booking_to_gs():
 
-    print("reached add bookin to gs")
-
+    # find last row in bookings list
     last_row_in_bookings_list = len(update_bookings_list) + 1
 
     global booked_bikes_list
     booked_bikes_list = ""
 
+    # for all bikes that have been booked
     for i in range(len(booked_bikes)):
+
+        # append bike index to a string
         booked_bikes_list += (booked_bikes[i]['booked_bike']) + ', '
 
-    print(booked_bikes_list)
-
+    # update columns in gs bookings 
     bookings_list.update_cell(last_row_in_bookings_list, 1, booking_number)
     bookings_list.update_cell(last_row_in_bookings_list, 2, responses_list[-1][0])  # noqa
     bookings_list.update_cell(last_row_in_bookings_list, 3, hire_dates_requested[0])  # noqa
@@ -709,6 +675,8 @@ def add_booking_to_gs():
     bookings_list.update_cell(last_row_in_bookings_list, 7, responses_list[-1][2])  # noqa
     bookings_list.update_cell(last_row_in_bookings_list, 8, booked_bikes_list)
     bookings_list.update_cell(last_row_in_bookings_list, 9, str(datetime.now()))  # noqa
+
+    print(">> booking added to bookings list in Google Sheets")
 
 
 get_latest_response()
@@ -825,3 +793,34 @@ get_latest_response()
 #     server.login("a3b48bd04430b7", "0ec73c699a910c")
 #     server.sendmail(sender, receiver, message_to_user)
 #     server.sendmail(sender, receiver, message_to_owner)
+
+
+
+
+
+    # # for all bike indexes in the gs calendar
+    # for i in range(len(calendar)):
+
+    #     # if bike index on calendar does NOT equal bike index in
+    #     # dictionary, we are not interested in this index,
+    #     # so increment i
+    #     if calendar[i][0] != choose_bike_index:
+    #         continue
+
+    #     else:
+    #         # if the bike indexes do match, determine the next empty
+    #         # cell next to that bike index
+    #         last_date_in_row = len((calendar[i]))-(calendar[i].count('') - 1)
+
+    #         # loop through the hire dates requested
+    #         for k in range(len(hire_dates_requested)):
+
+    #             # update the google sheet by inputting all hire dates
+    #             # requested against that bike index
+    #             update_calendar.update_cell(i+1,
+    #                                         last_date_in_row,
+    #                                         hire_dates_requested[k])
+
+    #             # increment the last empty cell ref, so we are not
+    #             # overwriting the same cell
+    #             last_date_in_row += 1
