@@ -41,11 +41,10 @@ See below a list of important links to run this project.  It may be helpful to B
 * [Heroku App](https://bike-hire-ms3.herokuapp.com/)
 * [Github Project](https://github.com/MojosBeans100/MS3-bike-hire)
 * [MailTrap](https://mailtrap.io/)
-    * [Mailtrap Access Link]((https://mailtrap.io/share/1059510/71ec0aa5f495037c06e12ebaebc9e6c1))
+    * [Mailtrap Access Link](https://mailtrap.io/share/1059510/71ec0aa5f495037c06e12ebaebc9e6c1)
 
 # How to run
-The system should be set up so that for the initial run, a form has been submitted containing the details below, but the code has not yet been run for that form.  
-Therefore, when the Heroku link is clicked and run, it should process this form. 
+The system should be set up so that for the initial run, a form has been submitted containing the details below, but the code has not yet been run for that form.  Therefore, when the Heroku link is clicked and run, it should process this form. 
 
 * Booking Number: 5
 * Booking Name: Patch Adams
@@ -95,7 +94,7 @@ This gives this bike a blanket unavailability, and it should not be able to be b
 
 If new bikes are bought in, they can be added to the bottom of the list, as opposed to deleting rows, or overwriting current bikes.
 
-![Bikes List](bike_available.JPG)
+![Bikes List](assets/images/bike_available.JPG)
 
 ### Size Guide
 This size guide references the correct bike size for various heights.
@@ -206,7 +205,15 @@ Owner email confirmation:
 ### Problem
 An email is also sent to both user and owner if there has been an issue with the booking (see [Error Checking](#error-checking)). 
 
+Email to user:
+
 ![Error Email](assets/images/error_email.JPG)
+
+Email to owner:
+
+![Error Email](assets/images/owner_email_problem.JPG)
+
+
 
 ## Future possible features
 * There should be a website whereby the user can access the form. On this website could be a calendar, where users can see which bikes are and are not available on the dates they wish to hire.  This would be automatically updated by the system to block out dates when no longer available. 

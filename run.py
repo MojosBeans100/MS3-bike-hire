@@ -42,6 +42,7 @@ sender = "bike_shop_owner@gmail.com"
 receiver = responses_list[-1][3]
 iterations = []
 
+
 def error_func(this_error, error_comment):
     """
     This function is called up whenever there is an error
@@ -51,8 +52,6 @@ def error_func(this_error, error_comment):
     print(error_comment)
     print("The process will stop.")
 
-    
-
 
 def get_latest_response():
     """
@@ -61,7 +60,6 @@ def get_latest_response():
     """
     # get type and quantity of bikes selected
     # get heights
-    # get date and duration of hire
 
     global types_list
     global heights_list
@@ -131,7 +129,8 @@ def booking_processed(bikes_dictionary):
 
             # print to terminal and stop process
             this_error = ("This booking has already been completed")
-            error_comment = f"This booking was processed on {update_bookings_list[j][8]}"
+            error_comment = \
+                f"This booking was processed on {update_bookings_list[j][8]}"
             error_func(this_error, error_comment)
             raise SystemExit
 
