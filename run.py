@@ -41,7 +41,6 @@ dates_filled_in_previous = sort_data[1][1]
 sender = "bike_shop_owner@gmail.com"
 receiver = responses_list[-1][3]
 iterations = []
-#user_email_subject = ""
 
 def error_func(this_error, error_comment):
     """
@@ -52,7 +51,7 @@ def error_func(this_error, error_comment):
     print(error_comment)
     print("The process will stop.")
 
-    raise SystemExit
+    
 
 
 def get_latest_response():
@@ -184,18 +183,14 @@ def find_unavailable_bikes(bikes_dictionary):
     Define a list of unavailable bikes for those dates
     """
 
+    global failed_booking
+
     # get users selected date
     users_start_date = responses_list[-1][5]
     today = datetime.now().date()
 
     # put date into different format
     start_date = datetime.strptime(users_start_date, "%m/%d/%Y").date()
-    
-    # first check dates submitted are not in the past
-    if start_date < today:
-        this_error = "Dates of hire not valid"
-        error_comment = "Dates submitted on form are in the past. User notified of problem."
-        error_func(this_error, error_comment)
 
     # calculate end date based on the hire duration
     delta = timedelta(days=int(responses_list[-1][6]) - 1)
@@ -209,6 +204,15 @@ def find_unavailable_bikes(bikes_dictionary):
         while start_date <= end_date:
             hire_dates_requested.append(start_date.strftime("%m/%d/%Y"))
             start_date += delta_day
+
+    # check dates submitted are not in the past
+    if start_date < today:
+
+        # if they are, process an email to inform user
+        # of failed booking
+        check_double_bookings()
+        failed_booking = "Date of hire is in the past"
+        return
 
     # for each date in the requested hire period
     for p in range(len(hire_dates_requested)):
@@ -504,7 +508,9 @@ def booked_or_not(bikes_dictionary):
             # if nothing has been booked, raise error
             else:
                 this_error = "Max iterations exceeded"
-                error_func(this_error)
+                failed_booking = "We could not find any suitable bikes"
+                check_double_bookings()
+                return
 
         find_alternatives(bikes_dictionary)
 
@@ -784,9 +790,11 @@ To: {sender}
 From: {sender}
 
 There was a booking form submitted by {responses_list[-1][1]}
-at {responses_list[-1][0]}, but the booking could not be processed.
+at {responses_list[-1][0]}, but the booking could not be processed because:
 
-Consult the Google Sheets database to book this bike in manually. 
+{failed_booking}.
+
+Consult the Google Sheets database for information about the booking.
         """
 
 # send the emails
