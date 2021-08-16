@@ -794,6 +794,7 @@ with smtplib.SMTP("smtp.mailtrap.io", 2525) as server:
     server.sendmail(sender, receiver, message_to_owner)
 
 
+raise SystemExit
 
 
 
