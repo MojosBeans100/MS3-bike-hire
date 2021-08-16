@@ -210,39 +210,24 @@ def find_unavailable_bikes():
             start_date += delta_day
 
     # for each date in the requested hire period
-    for k in range(len(hire_dates_requested)):
-
-        # and for each bike index in the calendar
-        for i in range(len(calendar)):
-
-            # if any of the bike indexes in the calendar are found
-            # in the requested hire period
-            if hire_dates_requested[k] in calendar[i]:
-
-                if calendar[i][0] not in unavailable_bikes:
-
-                    # then create a list of these unavailabe bikes
-                    # if not calendar[i][0] in unavailable_bikes:
-                    unavailable_bikes.append(calendar[i][0])
-
-    # NEW CODE
     for p in range(len(hire_dates_requested)):
 
+        # and for each date in the calendar
         for x in range(len(calendar2[2])):
-            
+
+            # if the date is the one of those in the requested hire period
             if calendar2[2][x] == hire_dates_requested[p]:
-                #print("MATCHED DATES")
-               # print(x)
 
+                # for each bike index
                 for q in range(len(calendar2)):
-                    
-                    if calendar2[q][x] != "" and q > 3 and calendar2[q][0] not in unavailable_bikes_check:
-                        
-                        print(calendar2[q][x])
-                        unavailable_bikes_check.append(calendar2[q][0])
 
-    print(unavailable_bikes_check)
+                    # if the cell is not blank, ie has a booking
+                    # (do not count first 3 rows, and do not duplicate)
+                    if calendar2[q][x] != "" and q > 3 and \
+                            calendar2[q][0] not in unavailable_bikes:
 
+                        # reference this bike and append to unavailable bikes
+                        unavailable_bikes.append(calendar2[q][0])
 
     # also look for blanket unavailability in bikes list
     # only do this ONCE
