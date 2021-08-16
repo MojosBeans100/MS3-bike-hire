@@ -133,6 +133,7 @@ def booking_processed(bikes_dictionary):
             this_error = ("This booking has already been completed")
             error_comment = f"This booking was processed on {update_bookings_list[j][8]}"
             error_func(this_error, error_comment)
+            raise SystemExit
 
     match_size(bikes_dictionary)
 

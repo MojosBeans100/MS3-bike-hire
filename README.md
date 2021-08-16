@@ -10,6 +10,11 @@ The purpose of this project was to create a booking system whereby users can sub
 - [Features](#features)
     - [Google Form](#google-form)
     - [Google Sheets](#google-sheets)
+        - [Responses List](#responses-list)
+        - [Bike List](#bike-list)
+        - [Size Guide](#size-guide)
+        - [Calendar](#calendar)
+        - [Bookings](#bookings)
     - [Python Code](#python-code)
         - [Main Functions](#main-functions)
         - [Error Checking](#error-checking)
@@ -47,8 +52,14 @@ Therefore, when the Heroku link is clicked and run, it should process this form.
 * Booking Dates: 
 * Number of bikes requested: 3
 
-It is then up to the tester to submit more forms and re-run the Heroku link.  
-If the form has already been processed, it should raise an error and not process that form again (this is based on the booking number, which is assigned to each booking.)
+It is then up to the tester to submit more forms and re-run the Heroku link.  Recommended steps:
+
+1. Submit a bike hire enquiry via the Google Form. 
+2. Check the *form_responses* worksheet in Google Sheets to see details of the form. 
+3. Run the program.
+4. Check the *calendar2* worksheet to see if a booking has been made for that booking number.
+5. Check the *bookings* worksheet to see if the booking has been appended.
+5. Check the emails in Mailtrap to see if an email has been delivered.
 
 # Features
 ## Google Form
@@ -165,6 +176,8 @@ Errors call up the function error_func, which exits the code with a raise System
 
     * Should an unavailable bike not be added to the unavailable bikes list, the code also ensures that when writing the booking number to the calendar, it can only do so into blank cells. 
 
+3. Form already processed - if the booking number already appears in the bookings list, the process will stop, to avoid re-booking this booking. 
+
 
 ## Confirmation emails
 ### Booked Bikes
@@ -235,6 +248,12 @@ The code could be re-written:  if the user is not happy with alternatives, ensur
 ### Google Forms
 * Google Forms was used to create the bike hire form to be submitted by the user. 
 
+### Mailtrap
+* Mailtrap was used as an email sandbox to verify email functions in code were working.
+
+### Heroku
+* Heroku was used to deploy the program. 
+
 [Back to Table of Contents](#table-of-contents)
 
 # Development
@@ -261,19 +280,6 @@ See an example below:
 
 [Back to Table of Contents](#table-of-contents)
 
-
-
-
-### Other General Spreadsheet Maintenance
-The bike shop owner will have access to the spreadsheet, to review the calendar.  It is likely there will be times 
-
-* To add new bikes bought into the shop, the owner can simply add the bike to the bottom of the bikes list, with a new bike index.  This again ensures no confusion with double booking other bikes. 
-
-* Maintenance
-Calendar updates
-
-* Manual booking
-
 # Issues
 The author's Gitpod workspace was stuck in the 'Stopping' loading screen for a while on Sunday 15th August.  On research into similar issues many other students have had, the decision was made swiftly to create an entirely new workspace (since all changes had been recently pushed to Github and therefore backed up), as opposed to raising a ticket with Gitpod and potentially losing hours or days of work time in the run up to the project submission date. 
 
@@ -289,14 +295,21 @@ The author requests that the project grader reviews the commits from 'bike-hire'
 [Back to Table of Contents](#table-of-contents)
 
 # Deployment
-The project was deployed to GitHub Pages using the following steps, I used Gitpod as a development environment where I commited all changes to git version control system. I used the push command in Gitpod to save changes into GitHub:
-
 The site was deployed to GitHub pages. The steps to deploy are as follows:
 * In the GitHub repository, navigate to the Settings tab
 * From the source section drop-down menu, select the Master Branch
 * Once the master branch has been selected, the page will be automatically refreshed with a detailed ribbon display to indicate the successful deployment.
 * The live link can be found here 
- > [MS3 Bike Hire in Github](https://github.com/MojosBeans100/MS3-bike-hire)
+ > [MS3-bike-hire](https://github.com/MojosBeans100/MS3-bike-hire)
+
+To run locally:
+* Log in to GitHub and click on repository to download [MS3-bike-hire](https://github.com/MojosBeans100/MS3-bike-hire)
+* select `Code` and click Download the ZIP file.
+* after download you can extract the file and use it in your local environment 
+
+Alternatively you can [Clone](https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/cloning-a-repository)
+or [Fork](https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/fork-a-repo)
+this repository ([MS3-bike-hire](https://github.com/MojosBeans100/MS3-bike-hire)) into your github account.
 
 The project was then deployed to Heroku using the following steps:
 
