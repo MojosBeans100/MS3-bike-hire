@@ -89,6 +89,7 @@ def get_latest_response():
     # create dictionaries to store info about each bike requested
     for j in range(len(types_list)):
         d = {
+            'bikes_dict_index': {j},
             'booking_number': booking_number,
             'dates_of_hire': [],
             'bike_type': types_list[j],
@@ -357,6 +358,7 @@ def book_bikes(bikes_dictionary):
             if len(bikes_dictionary[j]['possible_matches']) == 0:
 
                 bikes_dictionary[j]['comments'] = "No bikes available"
+
                 continue
 
             # if the possible matches list = 1, then there is only 1 choice
@@ -417,6 +419,8 @@ def book_bikes(bikes_dictionary):
 
         continue
 
+    print(not_booked_bikes)
+
     booked_or_not(bikes_dictionary)
 
 
@@ -429,7 +433,7 @@ def find_alternatives(bikes_dictionary):
 
     # only need to look for alternatives if there
     # are still bikes that aren't booked
-    if not_booked_bikes != 0:
+    if bikes_dictionary != 0:
 
         global alt_bikes
 
@@ -456,6 +460,7 @@ def find_alternatives(bikes_dictionary):
         # return to relevant function to perform again
         # only need to re-match the price, not the size as we know
         # the size is the same
+
         match_price(bikes_dictionary)
 
 
@@ -467,14 +472,14 @@ def booked_or_not(bikes_dictionary):
     """
     # print(f"Number of iterations = {len(iterations)+1}")
     # time.sleep(5)
+    print(len(bikes_dictionary))
 
     # for all bikes dictionaries
     for j in range(len(bikes_dictionary)):
 
         # if the status does not equal Booked, they are
         # NOT booked, so append them to not_booked_bikes list
-        if bikes_dictionary[j]['status'] != "Booked" and \
-                 bikes_dictionary[j] not in not_booked_bikes:
+        if bikes_dictionary[j] not in booked_bikes and bikes_dictionary[j] not in not_booked_bikes:
 
             not_booked_bikes.append(bikes_dictionary[j])
 
@@ -485,20 +490,32 @@ def booked_or_not(bikes_dictionary):
 
             not_booked_bikes.remove(bikes_dictionary[j])
 
+    print(f"booked bikes length {len(booked_bikes)}")
+    print(f"not booked bikes length {len(not_booked_bikes)}")
+    print(f"num req bikes {num_req_bikes}")
+    print(not_booked_bikes)
+
     # if all bikes have been booked
     if len(booked_bikes) == num_req_bikes:
         print("All bikes found.. sending confirmation emails")
         check_double_bookings()
+        return
 
     # if not all bikes have been booked
     # re-assign the bike dictionary to equal not_booked_bikes
     # to perform the iteration again for only these bikes
     elif responses_list[-1][17] == "Yes":
-        bikes_dictionary = copy.copy(not_booked_bikes)
-        iterations.append("1")
 
         # only allow max 4 iterations
-        if len(iterations) > 4:
+        if len(iterations) < 4:
+
+            bikes_dictionary = copy.copy(not_booked_bikes)
+            iterations.append("1")
+            #print(bikes_dictionary)
+            find_alternatives(bikes_dictionary)
+            print(f" iterations {len(iterations)}")
+
+        else:
 
             # if reached max but bikes have been booked
             # send normal booking email
@@ -510,9 +527,6 @@ def booked_or_not(bikes_dictionary):
                 this_error = "Max iterations exceeded"
                 failed_booking = "We could not find any suitable bikes"
                 check_double_bookings()
-                return
-
-        find_alternatives(bikes_dictionary)
 
     # if the user does not want us to look for alternatives
     else:
@@ -602,6 +616,8 @@ def booking_details():
     This function organises the text to be sent
     in an email to user and owner to confirm booking
     """
+
+    print(len(not_booked_bikes))
     global user_email_subject
 
     # create string for hire dates
@@ -684,7 +700,7 @@ def add_booking_to_gs():
     bookings_list.update_cell(last_row_in_bookings_list, 9, str(datetime.now()))  # noqa
 
     print(">> booking added to bookings list in Google Sheets")
-
+    
 
 get_latest_response()
 
