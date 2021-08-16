@@ -28,10 +28,12 @@ The purpose of this project was to create a booking system whereby users can sub
 See below a list of important links to run this project.
 
 * [Google Sheets](https://docs.google.com/spreadsheets/d/1OVm1E1Y4fHbadi8lmTDPpSb8AZ8jk7E__jBj3q6E0us/edit#gid=869283822)
+    * [Google Sheets Access Link](https://docs.google.com/spreadsheets/d/1OVm1E1Y4fHbadi8lmTDPpSb8AZ8jk7E__jBj3q6E0us/edit?usp=sharing)
 * [Google Forms](https://docs.google.com/forms/d/e/1FAIpQLSf65gwDPHQ-m0Fo5ZylJY6MdEva9j5YLtU0maKbP4wvLUBw-Q/viewform)
 * [Heroku App](https://bike-hire-ms3.herokuapp.com/)
 * [Github Project](https://github.com/MojosBeans100/MS3-bike-hire)
-* [MailTrap]()
+* [MailTrap](https://mailtrap.io/)
+    * [Mailtrap Access Link]((https://mailtrap.io/share/1059510/71ec0aa5f495037c06e12ebaebc9e6c1))
 
 # How to run
 The system should be set up so that for the initial run, a form has been submitted, but the code has not yet been run for that form.  

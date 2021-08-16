@@ -543,10 +543,15 @@ def check_double_bookings():
     # check that these two numbers match
     if num_dates_booked != num_dates_calendar:
         error_comment = f"{num_dates_booked} should have been added to the calendar.\
-            {num_dates_calendar} were added.  Please check any bikes/dates added to booking number {booking_number}."
+            {num_dates_calendar} were added.
+            Please check any bikes/dates added to booking number {booking_number}."
         this_error = "The number of dates added to calendar is incorrect."
         error_func(this_error, error_comment)
         # send email to owner???
+
+    print(dates_filled_in_now)
+    print(num_dates_booked)
+    print(num_dates_calendar)
 
     print(">> checked calendar for double bookings")
     calculate_cost()
@@ -778,14 +783,14 @@ Bike Shop
         """
 
     message_to_owner = f"""\
-Subject: {subject}
+Subject: Hire form submitted but not processed
 To: {sender}
 From: {sender}
 
 There was a booking form submitted by {responses_list[-1][1]}
 at {responses_list[-1][0]}, but the booking could not be processed.
 
-Please consult the Google Sheets database.
+Consult the Google Sheets database to book this bike in manually. 
         """
 
 # send the emails
