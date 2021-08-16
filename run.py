@@ -37,7 +37,6 @@ booked_bikes = []
 not_booked_bikes = []
 bikes_dictionary = []
 unavailable_bikes = []
-unavailable_bikes_check = []
 bike_costs = []
 total_cost = ""
 hire_dates_requested = []
@@ -53,7 +52,7 @@ def error_func(this_error):
     This function is called up whenever there is an error
     It does not allow the booking to go ahead
     """
-    print(f"The error is {this_error}.")
+    print(f"The error is: {this_error}.")
     print("The process will stop.")
 
     raise SystemExit
@@ -137,8 +136,9 @@ def booking_processed():
             # print to terminal and stop process
             print(f"This booking was processed on {update_bookings_list[j][8]}")
             this_error = ("This booking has already been completed")
+            error_func(this_error)
 
-    #match_size()
+    match_size()
 
 
 def match_size():
@@ -266,11 +266,11 @@ def match_suitable_bikes():
             bikes_dictionary[j]['num_bikes_available'] \
                 = (len(bikes_dictionary[j]['possible_matches']))
 
-    check_availability()
+    remove_unavailable_bikes()
     book_bikes()
 
 
-def check_availability():
+def remove_unavailable_bikes():
     """
     Cross reference possible matches in bike dictionaries with bike
     indexes in 'unavailable_bikes' list to check availability
@@ -402,9 +402,9 @@ def book_bikes(bikes_dictionary):
                 if bikes_dictionary[j] in not_booked_bikes:
                     not_booked_bikes.remove(bikes_dictionary[j])
 
-                # re-run check_availability to remove this bike index from
+                # re-run remove_unavailable_bikes to remove this bike index from
                 # other bike dicts
-                check_availability(bikes_dictionary)
+                remove_unavailable_bikes(bikes_dictionary)
 
             # if there is more than 1 bike available
             # randomly select a bike index from possible matches
@@ -430,9 +430,9 @@ def book_bikes(bikes_dictionary):
                 if bikes_dictionary[j] in not_booked_bikes:
                     not_booked_bikes.remove(bikes_dictionary[j])
 
-                # re-run check_availability to remove this bike index from
+                # re-run remove_unavailable_bikes to remove this bike index from
                 # other bike dicts
-                check_availability(bikes_dictionary)
+                remove_unavailable_bikes(bikes_dictionary)
 
         continue
 
