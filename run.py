@@ -647,7 +647,8 @@ def booking_details():
     if len(not_booked_bikes) == 0:
         email_not_booked_bike = "None"
 
-    add_booking_to_gs()
+    if len(booked_bikes) > 0:
+        add_booking_to_gs()
 
 
 def add_booking_to_gs():
