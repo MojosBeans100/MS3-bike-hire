@@ -543,7 +543,7 @@ def check_double_bookings():
     # check that these two numbers match
     if num_dates_booked != num_dates_calendar:
         error_comment = f"{num_dates_booked} should have been added to the calendar.\
-            {num_dates_calendar} were added.
+            {num_dates_calendar} were added. \
             Please check any bikes/dates added to booking number {booking_number}."
         this_error = "The number of dates added to calendar is incorrect."
         error_func(this_error, error_comment)

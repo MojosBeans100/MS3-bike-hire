@@ -17,6 +17,7 @@ The purpose of this project was to create a booking system whereby users can sub
     - [Future Possible Features](#future-possible-features)
 - [Technologies Used](#technologies-used)
 - [Development](#development)
+- [Limitations](#limitations)
 - [Testing](#testing)
     - [Functionality Testing](#functionality-testing)
     - [Code Validation](#code-validation)
@@ -25,7 +26,7 @@ The purpose of this project was to create a booking system whereby users can sub
 - [Acknowledgements](#acknowledgements)
 
 # Important Links
-See below a list of important links to run this project.
+See below a list of important links to run this project.  It may be helpful to Bookmark them.
 
 * [Google Sheets](https://docs.google.com/spreadsheets/d/1OVm1E1Y4fHbadi8lmTDPpSb8AZ8jk7E__jBj3q6E0us/edit#gid=869283822)
     * [Google Sheets Access Link](https://docs.google.com/spreadsheets/d/1OVm1E1Y4fHbadi8lmTDPpSb8AZ8jk7E__jBj3q6E0us/edit?usp=sharing)
@@ -36,8 +37,13 @@ See below a list of important links to run this project.
     * [Mailtrap Access Link]((https://mailtrap.io/share/1059510/71ec0aa5f495037c06e12ebaebc9e6c1))
 
 # How to run
-The system should be set up so that for the initial run, a form has been submitted, but the code has not yet been run for that form.  
+The system should be set up so that for the initial run, a form has been submitted containing the details below, but the code has not yet been run for that form.  
 Therefore, when the Heroku link is clicked and run, it should process this form. 
+
+* Booking Number: 5
+* Booking Name: Patch Adams
+* Booking Dates: 
+* Number of bikes requested: 3
 
 It is then up to the tester to submit more forms and re-run the Heroku link.  
 If the form has already been processed, it should raise an error and not process that form again (this is based on the booking number, which is assigned to each booking.)
@@ -208,9 +214,12 @@ The code could be re-written:  if the user is not happy with alternatives, ensur
 * I wanted the battleship to be placed randomly on the game board, so for that functionality I imported the random library.
 
 # Limitations
-## Number of bikes available for hire
+### Number of bikes available for hire
 There had to be a limit to how many bikes which could be hired, therefore this was limited to 5 bikes per form.  
 In the author's experience from running a similar business, generally larger bookings should be handled differently anyway.
+
+### Number of days available for hire
+Similarly, there is a maximum length of hire (10 days) and any hire longer than this can be dealt with manually with the shop owner.
  
 # Testing
 ## Functionality testing
