@@ -11,6 +11,8 @@ The purpose of this project was to create a booking system whereby users can sub
     - [Google Form](#google-form)
     - [Google Sheets](#google-sheets)
     - [Python Code](#python-code)
+        - [Main Functions](#main-functions)
+        - [Error Checking](#error-checking)
     - [Confirmation Emails](#confirmation-emails)
         - [Booked Bikes](#booked-bikes)
         - [Problem](#problem)
@@ -111,6 +113,8 @@ This worksheet is largely irrelevant to the owner, simply providing some data va
 
 ## Python Code
 
+### Main Functions
+
 1. The code initially retrieves information from the Google Sheets database, which was submitted by the user on the Google Form (function: get_latest_response) and outputs a list of dictionaries, with all relevant information about the bikes requested.
 
 2. It uses the rider heights to match to the revelant bike size (function: match_size) and appends this information to the bike dictionaries for each bike.
@@ -139,6 +143,33 @@ See the process flow below:
 
 [Back to Table of contents](#table-of-contents)
 
+### Error Checking
+
+There are several situations in which an error could occur with a booking system - this code attemps to prevent most of them. 
+
+Errors call up the function error_func, which exits the code with a raise SystemExit,and notifies both the user and owner that there has been a problem with the booking. 
+
+1. Invalid dates - the Google Form does allow for past dates to be submitted.  In the function find_unavailable_bikes, a quick check is performed to ensure that the start of hire date is after today's date. 
+
+2. Double booking - this is one of the more concerning errors, and the code should not allow this to occur. 
+    * The shop owner has the ability to choose a blanket availability to each bike index.  This allows for, for example,  mechanical problems with bikes thus rendering them unbookable for a few days, or the bike is sold and no longer present in the hire fleet.
+
+    * The code checks the dates in the calendar and returns unavailable bikes for those dates.
+
+    * If a bike is booked, the code removes that bike index from all other bike dictionaries, and appends it to the unavailble bikes list.
+
+    * The code checks and re-checks bikes availability each time the code is run.
+
+    * The code checks that the number of cells filled into the calendar during the booking process is equal to the number of cells filled in before current booking + (number of dates of hire x the number of bikes booked) - (function: check_double_bookings). 
+
+
+### Error Checking
+One of the most important aspects of a booking system is to ensure no double bookings occur.  For this reason, a number of error-checking measures are provided in the code.
+
+
+
+With all these measures, it should not be possible to double book a bike. 
+
 ## Confirmation emails
 ### Booked Bikes
 A confirmation email is sent to both the user and owner when bikes have been booked.
@@ -164,8 +195,9 @@ Owner email confirmation:
 [Back to Table of Contents](#table-of-contents)
 
 ### Problem
-An email is also sent to both user and owner if there has been an issue with the booking. 
+An email is also sent to both user and owner if there has been an issue with the booking (see [Error Checking](#error-checking)). 
 
+![Error Email](assets/images/error_email.JPG)
 
 ## Future possible features
 * There should be a website whereby the user can access the form. On this website could be a calendar, where users can see which bikes are and are not available on the dates they wish to hire.  This would be automatically updated by the system to block out dates when no longer available. 
@@ -234,18 +266,7 @@ See an example below:
 [Back to Table of Contents](#table-of-contents)
 
 
-### Error checking
-One of the most important aspects of a booking system is to ensure no double bookings occur.  For this reason, a number of error-checking measures are provided in the code.
 
-* The shop owner has the ability to choose a blanket availability to each bike index.  This allows for, for example,  mechanical problems with bikes thus rendering them unbookable for a few days, or the bike is sold and no longer present in the hire fleet.
-
-* The code checks the dates in the calendar and returns unavailable bikes for those dates.
-
-* If a bike is booked, the code removes that bike index from all other bike dictionaries, and appends it to the unavailble bikes list.
-
-* The code checks and re-checks bikes availability each time the code is run. 
-
-With all these measures, it should not be possible to double book a bike. 
 
 ### Other General Spreadsheet Maintenance
 The bike shop owner will have access to the spreadsheet, to review the calendar.  It is likely there will be times 
