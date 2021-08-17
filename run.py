@@ -335,7 +335,7 @@ def book_bikes_to_calendar(choose_bike_index):
                                     z+1,
                                     bikes_dictionary[0]['booking_number'])
 
-    print(f"Bike index {choose_bike_index} booked to calendar for {hire_dates_requested[0]} - {hire_dates_requested[-1]}")
+    print(f"Bike index {choose_bike_index} booked to calendar for {hire_dates_requested[0]} - {hire_dates_requested[-1]}")  # noqa
     time.sleep(3)
 
 
@@ -479,7 +479,8 @@ def booked_or_not(bikes_dictionary):
 
         # if the status does not equal Booked, they are
         # NOT booked, so append them to not_booked_bikes list
-        if bikes_dictionary[j] not in booked_bikes and bikes_dictionary[j] not in not_booked_bikes:
+        if bikes_dictionary[j] not in booked_bikes and \
+                bikes_dictionary[j] not in not_booked_bikes:
 
             not_booked_bikes.append(bikes_dictionary[j])
 
@@ -489,11 +490,6 @@ def booked_or_not(bikes_dictionary):
                 and bikes_dictionary[j] in not_booked_bikes:
 
             not_booked_bikes.remove(bikes_dictionary[j])
-
-    print(f"booked bikes length {len(booked_bikes)}")
-    print(f"not booked bikes length {len(not_booked_bikes)}")
-    print(f"num req bikes {num_req_bikes}")
-    print(not_booked_bikes)
 
     # if all bikes have been booked
     if len(booked_bikes) == num_req_bikes:
@@ -511,9 +507,7 @@ def booked_or_not(bikes_dictionary):
 
             bikes_dictionary = copy.copy(not_booked_bikes)
             iterations.append("1")
-            #print(bikes_dictionary)
             find_alternatives(bikes_dictionary)
-            print(f" iterations {len(iterations)}")
 
         else:
 
@@ -524,7 +518,6 @@ def booked_or_not(bikes_dictionary):
 
             # if nothing has been booked, raise error
             else:
-                this_error = "Max iterations exceeded"
                 failed_booking = "We could not find any suitable bikes"
                 check_double_bookings()
 
@@ -562,7 +555,8 @@ def check_double_bookings():
     if num_dates_booked != num_dates_calendar:
         error_comment = f"{num_dates_booked} should have been added to the calendar.\
             {num_dates_calendar} were added. \
-            Please check any bikes/dates added to booking number {booking_number}."
+            Please check any bikes/dates added to booking number \
+                {booking_number}."
         this_error = "The number of dates added to calendar is incorrect."
         error_func(this_error, error_comment)
         # send email to owner???
@@ -648,7 +642,7 @@ def booking_details():
                   f"Bike size:      {booked_bikes[i]['bike_size']}\n" \
                   f"Price per day:  {booked_bikes[i]['price_per_day']} GBP \n" \
                   f"Total price for {len(hire_dates_requested)} days = {bike_costs[i]} GBP\n" \
-                  '\n'
+                    '\n'
 
         email_booked_bike += bike_throwaway
 
@@ -657,10 +651,10 @@ def booking_details():
 
         # layout string of relevant details to be
         # added to email
-        bike_throwaway = f"Type:           {not_booked_bikes[i]['bike_type']}\n" \
+        bike_throwaway = f"Type:  {not_booked_bikes[i]['bike_type']}\n" \
                 f"Rider height:   {not_booked_bikes[i]['user_height']}\n" \
                 f"Bike size:      {not_booked_bikes[i]['bike_size']}\n" \
-                    '\n'
+                '\n'
 
         email_not_booked_bike += bike_throwaway
 
@@ -688,7 +682,7 @@ def add_booking_to_gs():
         # append bike index to a string
         booked_bikes_list += (booked_bikes[i]['booked_bike']) + ', '
 
-    # update columns in gs bookings 
+    # update columns in gs bookings
     bookings_list.update_cell(last_row_in_bookings_list, 1, booking_number)
     bookings_list.update_cell(last_row_in_bookings_list, 2, responses_list[-1][0])  # noqa
     bookings_list.update_cell(last_row_in_bookings_list, 3, hire_dates_requested[0])  # noqa
@@ -700,7 +694,7 @@ def add_booking_to_gs():
     bookings_list.update_cell(last_row_in_bookings_list, 9, str(datetime.now()))  # noqa
 
     print(">> booking added to bookings list in Google Sheets")
-    
+
 
 get_latest_response()
 
@@ -781,7 +775,7 @@ End of email
 
 else:
 
-    subject = f"Sorry - we were not successful with your booking for {user_email_subject}" # noqa
+    subject = f"Sorry - we were not successful with your booking for {user_email_subject}"  # noqa
 
     message_to_user = f"""\
 Subject: {subject}

@@ -214,13 +214,12 @@ Email to owner:
 ![Error Email](assets/images/owner_email_problem.JPG)
 
 
-
 ## Future possible features
 * There should be a website whereby the user can access the form. On this website could be a calendar, where users can see which bikes are and are not available on the dates they wish to hire.  This would be automatically updated by the system to block out dates when no longer available. 
 
 For example, see similar booking system idea here for a campervan rental site:
 
-<img src = "assets/images/availability_calendar_idea.JPG">
+![Calendar Idea](assets/images/availability_calendar_idea.JPG)
 
 * The confirmation email could specify which bikes were original choices, and which were alternatives, and what the alternatives chosen were. 
 
@@ -230,6 +229,10 @@ For example, see similar booking system idea here for a campervan rental site:
 For example, if they book two bikes, one of which is available and one which is not available, the code will still book in the available one.  
 In reality, this might not make sense as in that case the user would most likely prefer to simply cancel the booking entirely. 
 The code could be re-written:  if the user is not happy with alternatives, ensure all bikes are found before actually writing them to the calendar. 
+
+* It is possible an error may occur if the Google Form is inadequately filled out: in particular, it was discovered during testing that if a bike type is selected but the size is not, the code will return an error.  This could be fixed with a short loop at the start to check all necessary fields have been filled out, or within Google Forms there may be a function to require the size field if the type field is selected.  However, if the size field was made a requirement, it would be necessary for the user to fill out information for all 5 bikes, when they may only wish to book less than 5.
+
+* There is no doubt a wealth of refactoring which could be carried out to run this code more efficiently.
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -264,8 +267,11 @@ The code could be re-written:  if the user is not happy with alternatives, ensur
 [Back to Table of Contents](#table-of-contents)
 
 # Development
-* In order to access google sheets I needed to import the gspread module and credentials from the google.oauth2.service_account.
-* I wanted the battleship to be placed randomly on the game board, so for that functionality I imported the random library.
+* In order to access Google Sheets, the gspread module was imported and credentials from the google.oauth2.service_account.
+* In order to re-format the dates, *datetime* was imported.
+* In order to send emails, *smtplib* was imported.
+
+Throughout developement, several infinite loops were discovered, and the author has made an attempt to remedy these and exit the code elegantly by correcting the code or with raise SystemExit.
 
 # Limitations
 ### Number of bikes available for hire
@@ -278,12 +284,14 @@ Similarly, there is a maximum length of hire (10 days) and any hire longer than 
 # Testing
 ## Functionality testing
 * The code was tested numerous times, with varying scenarios in Gitpod to validate results. 
+* The Github link was sent to friends and family in order to test, and ensure access to all necessary systems was possible.
 
-See an example below:
 
 ## Code Validation
-* The code was checked using Pep8online checker.
-<img src="images/code-check.PNG">
+* The code was checked using [Pep8online](http://pep8online.com/) checker.
+* A small number of errors were found relating to length of lines, and where possible these were separated with \ or hushed with # noqa. 
+
+![Pep Results](assets/images/pep_results.JPG)
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -311,8 +319,8 @@ The site was deployed to GitHub pages. The steps to deploy are as follows:
 
 To run locally:
 * Log in to GitHub and click on repository to download [MS3-bike-hire](https://github.com/MojosBeans100/MS3-bike-hire)
-* select `Code` and click Download the ZIP file.
-* after download you can extract the file and use it in your local environment 
+* Select `Code` and click Download the ZIP file.
+* After download you can extract the file and use it in your local environment 
 
 Alternatively you can [Clone](https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/cloning-a-repository)
 or [Fork](https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/fork-a-repo)
