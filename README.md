@@ -42,15 +42,14 @@ See below a list of important links to run this project.  It may be helpful to B
 * [Heroku App](https://bike-hire-ms3.herokuapp.com/)
 * [Github Project](https://github.com/MojosBeans100/MS3-bike-hire)
 * [MailTrap](https://mailtrap.io/)
-    * [Mailtrap Access Link](https://mailtrap.io/share/1059510/71ec0aa5f495037c06e12ebaebc9e6c1)
 
 # How to run
 The system should be set up so that for the initial run, a form has been submitted containing the details below, but the code has not yet been run for that form.  Therefore, when the Heroku link is clicked and run, it should process this form. 
 
-* Booking Number: 5
+* Booking Number: 36
 * Booking Name: Patch Adams
-* Booking Dates: 
-* Number of bikes requested: 3
+* Booking Dates: 1st Sept 2021 - 5th Sept 2021
+* Number of bikes requested: 2
 
 It is then up to the tester to submit more forms and re-run the Heroku link.  Recommended steps:
 
@@ -59,8 +58,7 @@ It is then up to the tester to submit more forms and re-run the Heroku link.  Re
 3. Run the program.
 4. Check the *calendar2* worksheet to see if a booking has been made for that booking number.
 5. Check the *bookings* worksheet to see if the booking has been appended.
-6. Check the emails in Mailtrap to see if an email has been delivered t both the user and owner.
-7. If the tester wishes to run the same form several times, any bikes that have been booked in the calendar for that booking number, and the entire row for that booking number in *bookings* in Google Sheets can be deleted and the code re-run.   Otherwise, a message will print to state that the booking has already been processed and the code will not re-run. 
+6. If the tester wishes to run the same form several times, any bikes that have been booked in the calendar for that booking number, and the entire row for that booking number in *bookings* in Google Sheets can be deleted and the code re-run.   Otherwise, a message will print to state that the booking has already been processed and the code will not re-run. 
 
 Example of a booking already processed:
 
@@ -195,8 +193,8 @@ The email sent to the owner is simply to notify that a booking has been made, an
 
 [Mailtrap](https://mailtrap.io/) was used as the Email Sandbox Service system. 
 
-See link to the Mailtrap invite, to witness emails being sent and received.  An account will need to be created. 
-[Share link](https://mailtrap.io/share/1059510/71ec0aa5f495037c06e12ebaebc9e6c1)
+Mailtrap does not allow sharing the mail sandbox access link with a basic account.  
+The tester can see the images below for proof that the email system works, or adjust the code to send to their own email address.
 
 User email confirmation:
 
