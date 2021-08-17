@@ -28,6 +28,7 @@ The purpose of this project was to create a booking system whereby users can sub
 - [Testing](#testing)
     - [Functionality Testing](#functionality-testing)
     - [Code Validation](#code-validation)
+- [Issues](#issues)
 - [Deployment](#deployment)
 - [Credits](#credits)
 - [Acknowledgements](#acknowledgements)
@@ -58,7 +59,12 @@ It is then up to the tester to submit more forms and re-run the Heroku link.  Re
 3. Run the program.
 4. Check the *calendar2* worksheet to see if a booking has been made for that booking number.
 5. Check the *bookings* worksheet to see if the booking has been appended.
-5. Check the emails in Mailtrap to see if an email has been delivered.
+6. Check the emails in Mailtrap to see if an email has been delivered t both the user and owner.
+7. If the tester wishes to run the same form several times, any bikes that have been booked in the calendar for that booking number, and the entire row for that booking number in *bookings* in Google Sheets can be deleted and the code re-run.   Otherwise, a message will print to state that the booking has already been processed and the code will not re-run. 
+
+Example of a booking already processed:
+
+![Already Booked](assets/images/already_booked.JPG)
 
 # Features
 ## Google Form
@@ -101,7 +107,7 @@ This size guide references the correct bike size for various heights.
 The user will add their heights to each bike when submitting the form.
 
 ### Calendar
-The calendar displays which bikes have been booked against which dates, and for which booking number.
+The calendar displays which bikes have been booked against which dates, and for which booking number.  
 
 For example, in the below picture, it can be seen that for Booking Number 5, two bikes bikes (Bike Index 1, Bike Index 7) have been booked from the 18th - 24th Aug. 
 
@@ -230,7 +236,7 @@ For example, if they book two bikes, one of which is available and one which is 
 In reality, this might not make sense as in that case the user would most likely prefer to simply cancel the booking entirely. 
 The code could be re-written:  if the user is not happy with alternatives, ensure all bikes are found before actually writing them to the calendar. 
 
-* It is possible an error may occur if the Google Form is inadequately filled out: in particular, it was discovered during testing that if a bike type is selected but the size is not, the code will return an error.  This could be fixed with a short loop at the start to check all necessary fields have been filled out, or within Google Forms there may be a function to require the size field if the type field is selected.  However, if the size field was made a requirement, it would be necessary for the user to fill out information for all 5 bikes, when they may only wish to book less than 5.
+* It is possible an error may occur if the Google Form is inadequately filled out: in particular, it was discovered during testing that if a bike type is selected but the size is not, the code will return an error.  This could be fixed with a short loop at the start to check all necessary fields have been filled out, or within Google Forms there may be a function to require the size field if the type field is selected.  However, if the size field was made a requirement, it would be necessary for the user to fill out information for all 5 bikes, when they may only wish to book less than 5.  Likewise, if the size field is selected but bike type not, this would potentially raise a similar error. 
 
 * There is no doubt a wealth of refactoring which could be carried out to run this code more efficiently.
 
@@ -271,7 +277,6 @@ The code could be re-written:  if the user is not happy with alternatives, ensur
 * In order to re-format the dates, *datetime* was imported.
 * In order to send emails, *smtplib* was imported.
 
-Throughout developement, several infinite loops were discovered, and the author has made an attempt to remedy these and exit the code elegantly by correcting the code or with raise SystemExit.
 
 # Limitations
 ### Number of bikes available for hire
@@ -285,6 +290,7 @@ Similarly, there is a maximum length of hire (10 days) and any hire longer than 
 ## Functionality testing
 * The code was tested numerous times, with varying scenarios in Gitpod to validate results. 
 * The Github link was sent to friends and family in order to test, and ensure access to all necessary systems was possible.
+* Throughout developement, several infinite loops were discovered, and the author has made an attempt to remedy these and exit the code elegantly by correcting the code or with raise SystemExit. 
 
 
 ## Code Validation
@@ -333,7 +339,7 @@ The project was then deployed to Heroku using the following steps:
 * Add the CREDS.JSON file to the ConfigVars in Settings.
 * Add the Python and NodeJS buildpacks.
 * Manually deploy the project.
-> [MS3 Bike Hire in Heroku](https://dashboard.heroku.com/apps/bike-hire-ms3/deploy/github)
+[MS3 Bike Hire in Heroku](https://dashboard.heroku.com/apps/bike-hire-ms3/deploy/github)
 (https://bike-hire-ms3.herokuapp.com/)
 
 

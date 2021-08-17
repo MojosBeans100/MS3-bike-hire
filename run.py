@@ -419,8 +419,6 @@ def book_bikes(bikes_dictionary):
 
         continue
 
-    print(not_booked_bikes)
-
     booked_or_not(bikes_dictionary)
 
 
@@ -460,7 +458,6 @@ def find_alternatives(bikes_dictionary):
         # return to relevant function to perform again
         # only need to re-match the price, not the size as we know
         # the size is the same
-
         match_price(bikes_dictionary)
 
 
@@ -470,9 +467,6 @@ def booked_or_not(bikes_dictionary):
     If there are non-booked bikes and user is happy with alternative
     call up find_alternatives
     """
-    # print(f"Number of iterations = {len(iterations)+1}")
-    # time.sleep(5)
-    print(len(bikes_dictionary))
 
     # for all bikes dictionaries
     for j in range(len(bikes_dictionary)):
@@ -504,7 +498,6 @@ def booked_or_not(bikes_dictionary):
 
         # only allow max 4 iterations
         if len(iterations) < 4:
-
             bikes_dictionary = copy.copy(not_booked_bikes)
             iterations.append("1")
             find_alternatives(bikes_dictionary)
