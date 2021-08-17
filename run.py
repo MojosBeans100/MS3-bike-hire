@@ -41,6 +41,7 @@ dates_filled_in_previous = sort_data[1][1]
 sender = "bike_shop_owner@gmail.com"
 receiver = responses_list[-1][3]
 iterations = []
+failed_booking = "No suitable bikes found"
 
 
 def error_func(this_error, error_comment):
@@ -511,7 +512,6 @@ def booked_or_not(bikes_dictionary):
 
             # if nothing has been booked, raise error
             else:
-                failed_booking = "We could not find any suitable bikes"
                 check_double_bookings()
 
     # if the user does not want us to look for alternatives
@@ -604,7 +604,6 @@ def booking_details():
     in an email to user and owner to confirm booking
     """
 
-    print(len(not_booked_bikes))
     global user_email_subject
 
     # create string for hire dates
@@ -618,6 +617,7 @@ def booking_details():
     # to detail booked and not booked bikes
     global email_booked_bike
     global email_not_booked_bike
+    global failed_booking
     email_booked_bike = ""
     email_not_booked_bike = ""
     bike_throwaway = ""
